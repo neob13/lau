@@ -30,22 +30,6 @@
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background:
-      radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
-      radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
-      radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
-    pointer-events: none;
-    z-index: -1;
-    animation: subtleFloat 8s ease-in-out infinite;
-  }
-  @keyframes subtleFloat {
-    0%, 100% { transform: translateY(0) rotate(0);}
-    50% { transform: translateY(-10px) rotate(1deg);}
-  }
   header {
     position: fixed; top: 0; width: 100%;
     padding: 1rem 0;
@@ -53,7 +37,6 @@
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--secondary-purple);
     z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   nav {
     max-width: 1400px;
@@ -74,39 +57,6 @@
     gap: 0.7rem;
     cursor: pointer;
   }
-  .logo-icon {
-    font-size: 2.5rem;
-    animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
-      rotateColorFlower 8s linear infinite;
-    will-change: transform, filter;
-    filter: drop-shadow(0 0 20px var(--primary-pink));
-    transition: filter 0.3s, transform 0.3s;
-  }
-  .logo-icon:hover {
-    animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
-      rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: drop-shadow(0 0 40px var(--primary-pink));
-    transform: scale(1.08) rotate(-3deg);
-  }
-  @keyframes floatFlower {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0); }
-  }
-  @keyframes swingFlower {
-    0% { transform: rotate(-6deg); }
-    50% { transform: rotate(6deg); }
-    100% { transform: rotate(-6deg); }
-  }
-  @keyframes rotateColorFlower {
-    0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink)); }
-    100% { filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink)); }
-  }
-  @keyframes pulseFlower {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-    100% { transform: scale(1); }
-  }
   .nav-links {
     display: flex;
     gap: 2rem;
@@ -120,7 +70,6 @@
     font-size: 1rem;
     padding: 0.7rem 1.2rem;
     border-radius: 8px;
-    position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .nav-links a:hover {
@@ -128,75 +77,10 @@
     color: var(--white);
     transform: translateY(-2px) scale(1.07);
   }
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
-    overflow: hidden;
-  }
-  .hero-content {
-    max-width: 900px;
-    text-align: center;
-    z-index: 2;
-    padding: 7rem 2rem 2rem;
-  }
-  .hero h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(2.7rem, 7vw, 4.5rem);
-    font-weight: 700;
-    color: var(--primary-pink);
-    margin-bottom: 1.2rem;
-    background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-subtitle {
-    font-size: 1.5rem;
-    color: var(--secondary-purple);
-    margin-bottom: 2rem;
-    font-style: italic;
-    opacity: 0.95;
-  }
-  .hero-description {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    color: var(--dark-purple);
-  }
-  .cta-button {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
-    color: var(--white);
-    padding: 1.1rem 2.5rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    border-radius: 50px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 40px var(--shadow-pink);
-    border: 2px solid var(--primary-pink);
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-button:hover {
-    background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
-    color: var(--white);
-    transform: translateY(-4px) scale(1.06);
-    box-shadow: 0 20px 60px var(--shadow-purple);
-  }
   section {
     padding: 7rem 2rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
-    position: relative;
   }
   .section-title {
     font-family: 'Montserrat', sans-serif;
@@ -207,7 +91,6 @@
     background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
   .section-title::after {
     content: '';
@@ -220,7 +103,171 @@
     transform: translateX(-50%);
     border-radius: 2px;
   }
-  /* Galeria fotos admin visível somente após login cliente */
+  /* Produtos com centralização e flutuação */
+  #products-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .product-card {
+    background: var(--glass-pink);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 30px var(--shadow-pink);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 280px;
+    position: relative;
+    animation: floatUpDown 4s ease-in-out infinite;
+  }
+  .product-card:nth-child(even) {
+    animation-delay: 2s;
+  }
+  .product-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 45px var(--shadow-purple);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+  .product-card h3 {
+    color: var(--primary-pink);
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: var(--dark-purple);
+    margin-bottom: 0.8rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent-green);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .product-card .cta-button {
+    margin-top: auto;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-pink);
+    color: var(--white);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+  }
+  .product-card .cta-button:hover {
+    background: var(--secondary-purple);
+  }
+  .product-card button.delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 0, 0, 0.85);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  .product-card button.delete-btn:hover {
+    opacity: 1;
+  }
+  /* Catálogo - fotos admin */
+  #admin-photos-gallery {
+    display: none;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  #admin-photos-gallery.active {
+    display: flex;
+  }
+  #admin-photos-gallery .photo-card {
+    margin: 0 10px 20px;
+    text-align: center;
+    max-width: 220px;
+    position: relative;
+  }
+  #admin-photos-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  #admin-photos-gallery img:hover {
+    transform: scale(1.05);
+  }
+  #admin-photos-gallery button.delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(255,0,0,0.8);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  #admin-photos-gallery button.delete-btn:hover {
+    opacity: 1;
+  }
+  /* Modal foto alta resolução */
+  #photo-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+  }
+  #photo-modal.active {
+    display: flex;
+  }
+  #photo-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(255,255,255,0.7);
+  }
+  #photo-modal .close-btn {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+  }
+  /* Modal login cliente */
   #catalog-login-modal {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -276,54 +323,20 @@
   #catalog-login-modal button:hover {
     background: var(--secondary-purple);
   }
-  #catalogo {
-    margin-top: 3rem;
-  }
-  #admin-photos-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  #admin-photos-gallery img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 14px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  #admin-photos-gallery img:hover {
-    transform: scale(1.05);
-  }
-  /* Modal para foto em alta resolução */
-  #photo-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 4000;
-  }
-  #photo-modal.active {
-    display: flex;
-  }
-  #photo-modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.7);
-  }
-  #photo-modal .close-btn {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    font-size: 2.5rem;
+  /* Botões logout */
+  #admin-logout-btn, #client-logout-btn {
+    margin: 1rem auto;
+    display: block;
+    padding: 0.5rem 1rem;
+    background: var(--secondary-purple);
     color: white;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    user-select: none;
+    font-weight: 700;
+  }
+  #admin-logout-btn:hover, #client-logout-btn:hover {
+    background: var(--primary-pink);
   }
 </style>
 </head>
@@ -337,7 +350,7 @@
       <ul class="nav-links">
         <li><a href="#home">Início</a></li>
         <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#catalogo" id="catalog-link">Catálogo</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -347,7 +360,7 @@
   <section id="home" class="hero">
     <div class="hero-content">
       <h1>Beleza, Perfume & Bem-Estar</h1>
-      <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora</p>
+      <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora • Eudora • Kit Natura Ekos</p>
       <p class="hero-description">
         Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
         Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
@@ -359,20 +372,19 @@
   <section id="produtos">
     <h2 class="section-title">Produtos em Destaque</h2>
     <div id="products-section">
-      <!-- Produtos fixos ou estáticos aqui -->
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
-        <h3>Perfume Natura Essencial</h3>
-        <p>Fragrância sofisticada com notas amadeiradas e florais. Produto vegano e cruelty-free.</p>
-        <span class="badge">Vegano</span>
+      <div class="product-card" data-id="p1">
+        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Kit Natura Ekos" loading="lazy" />
+        <h3>Kit Natura Ekos</h3>
+        <p>Kit completo com produtos naturais da linha Ekos.</p>
         <a href="#contato" class="cta-button">Quero Comprar</a>
+        <button class="delete-btn" title="Excluir Produto">Excluir</button>
       </div>
-      <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Maquiagem O Boticário" loading="lazy" />
-        <h3>Maquiagem O Boticário</h3>
-        <p>Alta cobertura e longa duração com ingredientes hidratantes.</p>
-        <span class="badge">Hipoalergênico</span>
+      <div class="product-card" data-id="p2">
+        <img src="https://images.unsplash.com/photo-1583247982417-1f3f5f0e9e8c?auto=format&fit=crop&w=400&q=80" alt="Eudora" loading="lazy" />
+        <h3>Perfume Eudora</h3>
+        <p>Fragrância marcante e sofisticada.</p>
         <a href="#contato" class="cta-button">Quero Comprar</a>
+        <button class="delete-btn" title="Excluir Produto">Excluir</button>
       </div>
     </div>
   </section>
@@ -380,28 +392,18 @@
   <section id="catalogo">
     <h2 class="section-title">Catálogo de Fotos do Admin</h2>
     <button id="client-login-btn" class="cta-button" style="margin-bottom: 1rem;">Entrar para ver fotos em alta resolução</button>
-    <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador" style="display:none;">
-      <!-- Fotos adicionadas pelo admin aparecerão aqui para clientes logados -->
-    </div>
+    <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador" style="display:none;"></div>
   </section>
 
   <section id="sobre">
     <h2 class="section-title">Sobre Laudiane Lopes</h2>
     <div class="about-content">
       <div class="about-text">
-        <p>
-          <strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.
-        </p>
-        <p>
-          Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!
-        </p>
-        <p>
-          <b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b>
-        </p>
+        <p><strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.</p>
+        <p>Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!</p>
+        <p><b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b></p>
       </div>
-      <div class="about-image">
-        <span class="flower-icon" title="Flor da Beleza">🌸</span>
-      </div>
+      <div class="about-image"><span class="flower-icon" title="Flor da Beleza">🌸</span></div>
     </div>
   </section>
 
@@ -410,53 +412,27 @@
     <div class="contact-grid">
       <div class="contact-info">
         <h3>Atendimento & Pedidos</h3>
-        <div class="contact-item">
-          <strong>📱</strong>
-          <span><a href="https://wa.me/5562982326163" target="_blank">WhatsApp: (62) 9 8232-6163</a></span>
-        </div>
-        <div class="contact-item">
-          <strong>📧</strong>
-          <span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span>
-        </div>
-        <div class="contact-item">
-          <strong>📍</strong>
-          <span>Palmas, Tocantins</span>
-        </div>
-        <div class="contact-item">
-          <strong>⏰</strong>
-          <span>Seg a Sáb: 8h às 20h</span>
-        </div>
+        <div class="contact-item"><strong>📱</strong><span><a href="https://wa.me/5562982326163" target="_blank">WhatsApp: (62) 9 8232-6163</a></span></div>
+        <div class="contact-item"><strong>📧</strong><span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span></div>
+        <div class="contact-item"><strong>📍</strong><span>Palmas, Tocantins</span></div>
+        <div class="contact-item"><strong>⏰</strong><span>Seg a Sáb: 8h às 20h</span></div>
       </div>
       <div class="contact-form">
         <h3>Peça seu Catálogo ou Faça um Pedido</h3>
         <form>
-          <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="phone">WhatsApp</label>
-            <input type="tel" id="phone" name="phone" />
-          </div>
-          <div class="form-group">
-            <label for="message">Mensagem</label>
-            <textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea>
-          </div>
+          <div class="form-group"><label for="name">Nome</label><input type="text" id="name" name="name" required /></div>
+          <div class="form-group"><label for="email">E-mail</label><input type="email" id="email" name="email" required /></div>
+          <div class="form-group"><label for="phone">WhatsApp</label><input type="tel" id="phone" name="phone" /></div>
+          <div class="form-group"><label for="message">Mensagem</label><textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea></div>
           <button type="submit" class="cta-button">Enviar Pedido</button>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- Botão para abrir login admin -->
   <button id="admin-login-btn" title="Login Admin">⚙️</button>
 
-  <!-- Modal Login Admin -->
-  <div id="admin-login-modal">
+  <div id="admin-login-modal" class="modal">
     <div class="modal-content">
       <h3>Login Admin</h3>
       <form id="login-form">
@@ -469,10 +445,9 @@
     </div>
   </div>
 
-  <!-- Modal Login Cliente para catálogo -->
-  <div id="catalog-login-modal">
+  <div id="catalog-login-modal" class="modal">
     <div class="modal-content">
-      <h3>Login para Visualizar Catálogo</h3>
+      <h3>Login Cliente para Catálogo</h3>
       <form id="catalog-login-form">
         <label for="client-user">Usuário</label>
         <input type="text" id="client-user" required />
@@ -483,8 +458,7 @@
     </div>
   </div>
 
-  <!-- Painel Admin para Upload -->
-  <section id="admin-panel">
+  <section id="admin-panel" style="display:none; max-width:700px; margin:2rem auto; background:var(--glass-purple); padding:2rem; border-radius:18px; border:1.5px solid var(--primary-pink);">
     <h3>Upload de Fotos para o Catálogo</h3>
     <form id="upload-form">
       <label for="photo-name">Nome da Foto</label>
@@ -497,76 +471,68 @@
     </form>
     <div id="preview-container">
       <h4>Fotos Recentemente Adicionadas</h4>
-      <div id="preview-list"></div>
+      <div id="preview-list" style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;"></div>
     </div>
   </section>
 
-  <!-- Modal para foto em alta resolução -->
-  <div id="photo-modal">
-    <span class="close-btn" title="Fechar">&times;</span>
-    <img src="" alt="Foto em alta resolução" />
+  <div id="photo-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:4000;">
+    <span class="close-btn" title="Fechar" style="position:fixed; top:20px; right:30px; font-size:2.5rem; color:white; cursor:pointer; user-select:none;">&times;</span>
+    <img src="" alt="Foto em alta resolução" style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 0 40px rgba(255,255,255,0.7);" />
   </div>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
-      <p>Beleza, Perfume & Bem-Estar | Consultoria e Revenda Oficial</p>
-    </div>
-  </footer>
-
 <script>
-  // Admin login elements
+  // Elementos
   const adminLoginBtn = document.getElementById('admin-login-btn');
   const adminLoginModal = document.getElementById('admin-login-modal');
   const loginForm = document.getElementById('login-form');
   const adminPanel = document.getElementById('admin-panel');
   const previewList = document.getElementById('preview-list');
 
-  // Cliente login elements
   const clientLoginBtn = document.getElementById('client-login-btn');
   const catalogLoginModal = document.getElementById('catalog-login-modal');
   const catalogLoginForm = document.getElementById('catalog-login-form');
   const adminPhotosGallery = document.getElementById('admin-photos-gallery');
 
-  // Modal foto alta resolução
   const photoModal = document.getElementById('photo-modal');
   const photoModalImg = photoModal.querySelector('img');
   const photoModalClose = photoModal.querySelector('.close-btn');
 
-  // Estado login admin e cliente
+  // Estado login admin
   function setAdminLoggedIn(loggedIn) {
     if (loggedIn) {
       adminPanel.style.display = 'block';
       adminLoginBtn.style.display = 'none';
-      adminLoginModal.classList.remove('active');
+      adminLoginModal.style.display = 'none';
       if (!document.getElementById('admin-logout-btn')) createAdminLogoutButton();
+      refreshAdminGalleryButtons();
     } else {
       adminPanel.style.display = 'none';
       adminLoginBtn.style.display = 'block';
-      adminLoginModal.classList.remove('active');
+      adminLoginModal.style.display = 'none';
       localStorage.removeItem('adminLoggedIn');
       const btn = document.getElementById('admin-logout-btn');
       if (btn) btn.remove();
+      refreshAdminGalleryButtons();
     }
   }
 
+  // Estado login cliente
   function setClientLoggedIn(loggedIn) {
     if (loggedIn) {
       clientLoginBtn.style.display = 'none';
-      adminPhotosGallery.style.display = 'flex';
-      catalogLoginModal.classList.remove('active');
+      catalogLoginModal.style.display = 'none';
+      adminPhotosGallery.classList.add('active');
       if (!document.getElementById('client-logout-btn')) createClientLogoutButton();
     } else {
       clientLoginBtn.style.display = 'inline-block';
-      adminPhotosGallery.style.display = 'none';
-      catalogLoginModal.classList.remove('active');
-      localStorage.removeItem('clientLoggedIn');
+      catalogLoginModal.style.display = 'none';
+      adminPhotosGallery.classList.remove('active');
       const btn = document.getElementById('client-logout-btn');
       if (btn) btn.remove();
     }
   }
 
-  // Criar botões logout
+  // Cria botões logout
   function createAdminLogoutButton() {
     const btn = document.createElement('button');
     btn.id = 'admin-logout-btn';
@@ -606,8 +572,8 @@
   }
 
   // Eventos login admin
-  adminLoginBtn.addEventListener('click', () => adminLoginModal.classList.add('active'));
-  adminLoginModal.addEventListener('click', e => { if(e.target === adminLoginModal) adminLoginModal.classList.remove('active'); });
+  adminLoginBtn.addEventListener('click', () => adminLoginModal.style.display = 'block');
+  adminLoginModal.addEventListener('click', e => { if(e.target === adminLoginModal) adminLoginModal.style.display = 'none'; });
   loginForm.addEventListener('submit', e => {
     e.preventDefault();
     const user = document.getElementById('admin-user').value.trim();
@@ -621,9 +587,9 @@
     }
   });
 
-  // Eventos login cliente para catálogo
-  clientLoginBtn.addEventListener('click', () => catalogLoginModal.classList.add('active'));
-  catalogLoginModal.addEventListener('click', e => { if(e.target === catalogLoginModal) catalogLoginModal.classList.remove('active'); });
+  // Eventos login cliente
+  clientLoginBtn.addEventListener('click', () => catalogLoginModal.style.display = 'flex');
+  catalogLoginModal.addEventListener('click', e => { if(e.target === catalogLoginModal) catalogLoginModal.style.display = 'none'; });
   catalogLoginForm.addEventListener('submit', e => {
     e.preventDefault();
     const user = document.getElementById('client-user').value.trim();
@@ -680,11 +646,11 @@
       addPhotoToGallery(photo);
       addPreview(photo);
     });
-    // Se cliente já estiver logado, mostra galeria
+    // Atualiza visibilidade catálogo conforme login cliente
     if(localStorage.getItem('clientLoggedIn') === 'true') {
       setClientLoggedIn(true);
     }
-    // Se admin logado, mostra painel
+    // Atualiza painel admin conforme login admin
     if(localStorage.getItem('adminLoggedIn') === 'true') {
       setAdminLoggedIn(true);
     }
@@ -696,9 +662,11 @@
     const card = document.createElement('div');
     card.classList.add('photo-card');
     card.dataset.id = photo.id;
+
     card.style.margin = '0 10px 20px';
     card.style.textAlign = 'center';
     card.style.maxWidth = '220px';
+    card.style.position = 'relative';
 
     const img = document.createElement('img');
     img.src = photo.imageSrc;
@@ -713,13 +681,11 @@
     img.style.cursor = 'pointer';
 
     img.addEventListener('click', () => openPhotoModal(photo.imageSrc, photo.name));
-
     img.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; });
     img.addEventListener('mouseleave', () => { img.style.transform = 'scale(1)'; });
 
     card.appendChild(img);
 
-    // Se admin logado, adiciona botão excluir
     if(localStorage.getItem('adminLoggedIn') === 'true') {
       const btnDelete = document.createElement('button');
       btnDelete.textContent = 'Excluir';
@@ -731,6 +697,11 @@
       btnDelete.style.border = 'none';
       btnDelete.style.borderRadius = '6px';
       btnDelete.style.cursor = 'pointer';
+      btnDelete.style.fontSize = '0.9rem';
+      btnDelete.style.opacity = '0.8';
+      btnDelete.style.transition = 'opacity 0.3s ease';
+      btnDelete.onmouseenter = () => btnDelete.style.opacity = '1';
+      btnDelete.onmouseleave = () => btnDelete.style.opacity = '0.8';
       btnDelete.onclick = () => deletePhoto(photo.id);
       card.appendChild(btnDelete);
     }
@@ -778,6 +749,32 @@
       photoModal.classList.remove('active');
       photoModalImg.src = '';
       photoModalImg.alt = '';
+    }
+  });
+
+  // Produtos: exclusão pelo admin
+  const productsSection = document.getElementById('products-section');
+  productsSection.addEventListener('click', e => {
+    if(e.target.classList.contains('delete-btn')) {
+      if(confirm('Deseja realmente excluir este produto?')) {
+        const card = e.target.closest('.product-card');
+        if(card) {
+          card.remove();
+          // Aqui poderia-se implementar persistência se produtos fossem dinâmicos
+        }
+      }
+    }
+  });
+
+  // Controle do link catálogo: exige login cliente
+  const catalogLink = document.getElementById('catalog-link');
+  catalogLink.addEventListener('click', e => {
+    if(localStorage.getItem('clientLoggedIn') !== 'true') {
+      e.preventDefault();
+      catalogLoginModal.style.display = 'flex';
+    } else {
+      // Permite acesso direto
+      adminPhotosGallery.scrollIntoView({behavior: 'smooth'});
     }
   });
 
