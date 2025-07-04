@@ -227,6 +227,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 1rem;
+    justify-content: center; /* centraliza os produtos */
   }
   .product-card {
     flex: 0 0 280px;
@@ -522,12 +523,21 @@
     background: var(--secondary-purple);
   }
   #preview-container {
+    margin-top: 2rem;
+  }
+  #preview-container h4 {
+    color: var(--primary-pink);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #preview-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 1rem;
+    justify-content: center;
   }
-  #preview-container img {
+  #preview-list img {
     width: 120px;
     height: 120px;
     object-fit: cover;
@@ -723,7 +733,10 @@
       <input type="file" id="product-image" accept="image/*" required />
       <button type="submit">Adicionar Produto</button>
     </form>
-    <div id="preview-container"></div>
+    <div id="preview-container">
+      <h4>Produtos Recentemente Adicionados</h4>
+      <div id="preview-list"></div>
+    </div>
   </section>
 
   <footer>
@@ -734,41 +747,63 @@
   </footer>
 
 <script>
-  // Login admin simples (user: admin, pass: 1234)
+  // Persistência simples de login via localStorage
   const adminLoginBtn = document.getElementById('admin-login-btn');
   const adminLoginModal = document.getElementById('admin-login-modal');
   const loginForm = document.getElementById('login-form');
   const adminPanel = document.getElementById('admin-panel');
+  const productsCarousel = document.getElementById('products-carousel');
+  const previewList = document.getElementById('preview-list');
 
+  // Função para atualizar interface após login
+  function setLoggedIn(loggedIn) {
+    if (loggedIn) {
+      adminPanel.classList.add('active');
+      adminLoginBtn.style.display = 'none';
+      adminLoginModal.classList.remove('active');
+    } else {
+      adminPanel.classList.remove('active');
+      adminLoginBtn.style.display = 'block';
+      adminLoginModal.classList.remove('active');
+      localStorage.removeItem('adminLoggedIn');
+    }
+  }
+
+  // Verifica login no carregamento da página
+  window.addEventListener('DOMContentLoaded', () => {
+    const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+    setLoggedIn(loggedIn);
+    loadStoredProducts();
+  });
+
+  // Abrir modal login
   adminLoginBtn.addEventListener('click', () => {
     adminLoginModal.classList.add('active');
   });
 
+  // Fechar modal clicando fora do conteúdo
   adminLoginModal.addEventListener('click', e => {
     if (e.target === adminLoginModal) {
       adminLoginModal.classList.remove('active');
     }
   });
 
+  // Login form submit
   loginForm.addEventListener('submit', e => {
     e.preventDefault();
     const user = document.getElementById('admin-user').value.trim();
     const pass = document.getElementById('admin-pass').value.trim();
     if (user === 'admin' && pass === '1234') {
       alert('Login bem-sucedido!');
-      adminLoginModal.classList.remove('active');
-      adminPanel.classList.add('active');
-      adminLoginBtn.style.display = 'none';
+      localStorage.setItem('adminLoggedIn', 'true');
+      setLoggedIn(true);
     } else {
       alert('Usuário ou senha incorretos.');
     }
   });
 
-  // Upload e exibição dinâmica dos produtos
+  // Upload form submit
   const uploadForm = document.getElementById('upload-form');
-  const previewContainer = document.getElementById('preview-container');
-  const productsCarousel = document.getElementById('products-carousel');
-
   uploadForm.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -785,50 +820,108 @@
 
     const reader = new FileReader();
     reader.onload = function(event) {
-      // Criar card do produto dinamicamente
-      const card = document.createElement('div');
-      card.classList.add('product-card');
-
-      const img = document.createElement('img');
-      img.src = event.target.result;
-      img.alt = name;
-
-      const h3 = document.createElement('h3');
-      h3.textContent = name;
-
-      const p = document.createElement('p');
-      p.textContent = desc;
-
-      card.appendChild(img);
-      card.appendChild(h3);
-      card.appendChild(p);
-
-      if (badge) {
-        const spanBadge = document.createElement('span');
-        spanBadge.classList.add('badge');
-        spanBadge.textContent = badge;
-        card.appendChild(spanBadge);
-      }
-
-      const btn = document.createElement('a');
-      btn.classList.add('cta-button');
-      btn.href = '#contato';
-      btn.textContent = 'Quero Comprar';
-      card.appendChild(btn);
-
-      productsCarousel.appendChild(card);
-
-      // Preview da imagem enviada no painel admin
-      const previewImg = document.createElement('img');
-      previewImg.src = event.target.result;
-      previewImg.alt = name;
-      previewContainer.appendChild(previewImg);
-
-      // Reset form
+      const product = {
+        id: Date.now(),
+        name,
+        desc,
+        badge,
+        imageSrc: event.target.result
+      };
+      addProductToUI(product);
+      saveProduct(product);
       uploadForm.reset();
       alert('Produto adicionado com sucesso!');
     };
     reader.readAsDataURL(file);
+  });
+
+  // Adiciona produto na seção visível para clientes
+  function addProductToUI(product) {
+    const card = document.createElement('div');
+    card.classList.add('product-card');
+
+    const img = document.createElement('img');
+    img.src = product.imageSrc;
+    img.alt = product.name;
+
+    const h3 = document.createElement('h3');
+    h3.textContent = product.name;
+
+    const p = document.createElement('p');
+    p.textContent = product.desc;
+
+    card.appendChild(img);
+    card.appendChild(h3);
+    card.appendChild(p);
+
+    if (product.badge) {
+      const spanBadge = document.createElement('span');
+      spanBadge.classList.add('badge');
+      spanBadge.textContent = product.badge;
+      card.appendChild(spanBadge);
+    }
+
+    const btn = document.createElement('a');
+    btn.classList.add('cta-button');
+    btn.href = '#contato';
+    btn.textContent = 'Quero Comprar';
+    card.appendChild(btn);
+
+    productsCarousel.appendChild(card);
+  }
+
+  // Salva produto no localStorage
+  function saveProduct(product) {
+    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
+    products.push(product);
+    localStorage.setItem('uploadedProducts', JSON.stringify(products));
+    addPreview(product);
+  }
+
+  // Carrega produtos do localStorage na UI e preview
+  function loadStoredProducts() {
+    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
+    products.forEach(product => {
+      addProductToUI(product);
+      addPreview(product);
+    });
+  }
+
+  // Adiciona preview no painel admin
+  function addPreview(product) {
+    const previewImg = document.createElement('img');
+    previewImg.src = product.imageSrc;
+    previewImg.alt = product.name;
+    previewList.appendChild(previewImg);
+  }
+
+  // Opcional: logout para admin
+  function createLogoutButton() {
+    const btn = document.createElement('button');
+    btn.textContent = 'Logout Admin';
+    btn.style.marginTop = '1rem';
+    btn.style.padding = '0.5rem 1rem';
+    btn.style.background = 'var(--secondary-purple)';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '8px';
+    btn.style.cursor = 'pointer';
+    btn.onclick = () => {
+      if (confirm('Deseja realmente sair?')) {
+        setLoggedIn(false);
+        // Limpa produtos da UI para evitar duplicação no reload
+        productsCarousel.innerHTML = '';
+        previewList.innerHTML = '';
+      }
+    };
+    adminPanel.appendChild(btn);
+  }
+
+  // Cria botão logout ao ativar painel admin
+  window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      createLogoutButton();
+    }
   });
 </script>
 </body>
