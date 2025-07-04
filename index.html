@@ -220,12 +220,87 @@
     transform: translateX(-50%);
     border-radius: 2px;
   }
+  /* Seção de produtos com centralização e floats */
+  #products-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .product-card {
+    background: var(--glass-pink);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 30px var(--shadow-pink);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 280px;
+    position: relative;
+    animation: floatUpDown 4s ease-in-out infinite;
+  }
+  .product-card:nth-child(even) {
+    animation-delay: 2s;
+  }
+  .product-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 45px var(--shadow-purple);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+  .product-card h3 {
+    color: var(--primary-pink);
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: var(--dark-purple);
+    margin-bottom: 0.8rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent-green);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .product-card .cta-button {
+    margin-top: auto;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-pink);
+    color: var(--white);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .product-card .cta-button:hover {
+    background: var(--secondary-purple);
+  }
   /* Galeria exclusiva para fotos do admin */
   #admin-photos-gallery {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
+    margin-top: 2rem;
   }
   #admin-photos-gallery img {
     width: 200px;
@@ -512,27 +587,6 @@
   #admin-login-btn:hover {
     background: var(--secondary-purple);
   }
-  @media (max-width: 900px) {
-    .about-content,
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .hero-content {
-      padding-top: 5rem;
-    }
-  }
-  @media (max-width: 600px) {
-    .hero-content {
-      padding-top: 4rem;
-    }
-    section {
-      padding: 4rem 1rem 1rem;
-    }
-    .flower-icon {
-      font-size: 5rem;
-    }
-  }
 </style>
 </head>
 <body>
@@ -566,8 +620,8 @@
 
   <section id="produtos">
     <h2 class="section-title">Produtos em Destaque</h2>
-    <div class="products-carousel" id="products-carousel">
-      <!-- Produtos estáticos iniciais -->
+    <div id="products-section">
+      <!-- Produtos fixos ou estáticos aqui -->
       <div class="product-card">
         <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
         <h3>Perfume Natura Essencial</h3>
@@ -588,7 +642,7 @@
   <section id="catalogo">
     <h2 class="section-title">Catálogo de Fotos do Admin</h2>
     <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador">
-      <!-- Fotos adicionadas pelo admin aparecerão aqui -->
+      <!-- Fotos adicionadas pelo admin aparecerão aqui para todos visitantes -->
     </div>
   </section>
 
@@ -814,7 +868,7 @@
     reader.readAsDataURL(file);
   });
 
-  // Adiciona foto na galeria visível para clientes
+  // Adiciona foto na galeria visível para clientes e visitantes
   function addPhotoToGallery(photo) {
     // Evita duplicação
     if(adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
