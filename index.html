@@ -7,13 +7,12 @@
     <style>
         /* Variáveis de cores */
         :root {
-            --primary-purple: #6C4D8B;
-            --secondary-purple: #8B6C9C;
+            --primary-pink: #FF69B4;
+            --secondary-purple: #BA55D3;
             --white: #FFF;
             --glass-purple: rgba(255, 255, 255, 0.05);
             --dark-brown: #3C2415;
             --shadow-dark: rgba(0, 0, 0, 0.3);
-            --shadow-gold: rgba(218, 165, 32, 0.2);
         }
 
         /* Reset e configurações básicas */
@@ -35,13 +34,17 @@
             margin: 0 auto;
         }
 
-        /* Galeria pública */
+        /* Seção do Catálogo Público */
+        #catalogo {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
         #admin-photos-gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
             justify-content: center;
-            margin-top: 2rem;
         }
 
         .photo-card {
@@ -80,14 +83,14 @@
             font-size: 0.9rem;
             opacity: 0.8;
             transition: opacity 0.3s ease;
-            display: none; /* Inicialmente invisível para não-admins */
+            display: none; /* Inicialmente oculto para não-admins */
         }
 
         .delete-btn:hover {
             opacity: 1;
         }
 
-        /* Estilos do painel admin */
+        /* Painel Admin */
         #admin-panel {
             display: none;
             max-width: 700px;
@@ -95,7 +98,7 @@
             background: var(--glass-purple);
             padding: 2rem;
             border-radius: 18px;
-            border: 1.5px solid var(--primary-purple);
+            border: 1.5px solid var(--primary-pink);
         }
 
         /* Modal de login admin */
@@ -117,10 +120,9 @@
             padding: 2rem;
             border-radius: 18px;
             max-width: 400px;
-            width: 100%;
         }
 
-        /* Modal de visualização de fotos */
+        /* Modal de visualização */
         #photo-modal {
             position: fixed;
             top: 0;
@@ -154,46 +156,27 @@
 </head>
 <body>
     <div class="container">
-        <!-- Seção de Catálogo Público -->
+        <!-- Seção do Catálogo Público -->
         <section id="catalogo">
-            <h2 class="section-title">Catálogo de Fotos</h2>
-            <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos"></div>
+            <h2 class="section-title">Catálogo de Fotos do Admin</h2>
+            <div id="admin-photos-gallery"></div>
         </section>
-
-        <!-- Botão Admin -->
-        <button id="admin-login-btn" style="position: fixed; bottom: 20px; right: 20px; background: var(--primary-purple); color: white; border: none; padding: 1rem 1.5rem; border-radius: 50px; cursor: pointer;">
-            ⚙️ Login Admin
-        </button>
-
-        <!-- Modal de Login do Admin -->
-        <div id="admin-login-modal">
-            <div class="modal-content">
-                <h3>Login Admin</h3>
-                <form id="login-form">
-                    <label for="admin-user">Usuário:</label>
-                    <input type="text" id="admin-user" required>
-                    <label for="admin-pass">Senha:</label>
-                    <input type="password" id="admin-pass" required>
-                    <button type="submit">Entrar</button>
-                </form>
-            </div>
-        </div>
 
         <!-- Painel Admin -->
         <section id="admin-panel">
             <h3>Upload de Fotos</h3>
             <form id="upload-form">
-                <label for="photo-name">Nome:</label>
+                <label for="photo-name">Nome da Foto</label>
                 <input type="text" id="photo-name" required>
-                <label for="photo-desc">Descrição:</label>
+                <label for="photo-desc">Descrição</label>
                 <textarea id="photo-desc" rows="3" required></textarea>
-                <label for="photo-image">Imagem:</label>
+                <label for="photo-image">Selecione a imagem</label>
                 <input type="file" id="photo-image" accept="image/*" required>
                 <button type="submit">Adicionar Foto</button>
             </form>
             <div id="preview-container">
                 <h4>Pré-visualização:</h4>
-                <div id="preview-list" style="display: flex; gap: 1rem;"></div>
+                <div id="preview-list"></div>
             </div>
             <button id="admin-logout-btn" style="display: none; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--secondary-purple); color: white; border: none; cursor: pointer;">
                 Logout Admin
@@ -201,7 +184,7 @@
         </section>
     </div>
 
-    <!-- Modal de Visualização de Fotos -->
+    <!-- Modal de Visualização -->
     <div id="photo-modal">
         <span class="close-btn">&times;</span>
         <img src="" alt="Foto em alta resolução">
@@ -227,11 +210,11 @@
             adminPanel.style.display = show ? 'block' : 'none';
             adminLoginBtn.style.display = show ? 'none' : 'block';
             adminLoggedIn = show;
-            
+
             // Mostrar botão de logout se logado
             const logoutBtn = document.getElementById('admin-logout-btn');
             logoutBtn.style.display = show ? 'block' : 'none';
-            
+
             // Atualizar visibilidade dos botões de exclusão
             updateDeleteButtons();
         }
@@ -245,15 +228,10 @@
 
         // Função para adicionar foto ao catálogo
         function addPhotoToGallery(photo) {
-            const existingCard = adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`);
-            if (existingCard) return;
-
-            // Criar card
             const card = document.createElement('div');
             card.className = 'photo-card';
             card.dataset.id = photo.id;
-            
-            // Imagem
+
             const img = document.createElement('img');
             img.src = photo.imageSrc;
             img.alt = photo.name;
@@ -269,7 +247,6 @@
             deleteBtn.textContent = 'Excluir';
             deleteBtn.onclick = () => deletePhoto(photo.id);
 
-            // Adicionar elementos
             card.appendChild(img);
             card.appendChild(deleteBtn);
             adminPhotosGallery.appendChild(card);
@@ -281,13 +258,13 @@
             photoModal.style.display = 'flex';
         }
 
-        // Função para fechar modal
+        // Fechar modal
         photoModalClose.addEventListener('click', () => {
             photoModal.style.display = 'none';
             photoModalImg.src = '';
         });
 
-        // Função para deletar foto
+        // Deletar foto
         function deletePhoto(id) {
             if (!confirm('Deseja realmente excluir esta foto?')) return;
 
@@ -301,7 +278,7 @@
             localStorage.setItem('adminPhotos', JSON.stringify(photos));
         }
 
-        // Lógica de login/admin
+        // Login do Admin
         adminLoginBtn.addEventListener('click', () => {
             adminLoginModal.style.display = 'flex';
         });
@@ -368,7 +345,7 @@
                 addPhotoToGallery(photo);
                 addPreview(photo);
                 document.getElementById('upload-form').reset();
-                alert('Foto adicionada!');
+                alert('Foto adicionada com sucesso!');
             };
             reader.readAsDataURL(file);
         });
