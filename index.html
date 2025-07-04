@@ -164,6 +164,179 @@
   #client-login-btn:hover {
     background: var(--secondary-purple);
   }
+  /* Sobre e Contato estilos */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .about-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--dark-purple);
+  }
+  .about-text p {
+    margin-bottom: 1.2rem;
+    opacity: 0.92;
+  }
+  .about-image {
+    text-align: center;
+    position: relative;
+  }
+  .flower-icon {
+    font-size: 8rem;
+    color: var(--primary-pink);
+    text-shadow: 0 0 32px var(--secondary-purple);
+    filter: drop-shadow(0 0 20px var(--primary-pink));
+    display: inline-block;
+    animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+    will-change: transform, filter;
+    transition: filter 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .flower-icon:hover {
+    animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+    filter: drop-shadow(0 0 60px var(--secondary-purple));
+    transform: scale(1.08) rotate(-3deg);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .contact-info {
+    background: var(--glass-purple);
+    backdrop-filter: blur(16px);
+    padding: 2.5rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--primary-pink);
+    transition: all 0.4s;
+  }
+  .contact-info h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-pink);
+    margin-bottom: 1.3rem;
+    font-size: 1.2rem;
+  }
+  .contact-item {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: var(--soft-lilac);
+    border-radius: 10px;
+    transition: all 0.3s;
+  }
+  .contact-item strong {
+    font-size: 1.1rem;
+    color: var(--secondary-purple);
+  }
+  .contact-item a {
+    color: var(--primary-pink);
+    text-decoration: none;
+  }
+  .contact-form {
+    background: var(--glass-pink);
+    backdrop-filter: blur(16px);
+    padding: 2.5rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--secondary-purple);
+  }
+  .contact-form h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary-purple);
+    margin-bottom: 1.3rem;
+    font-size: 1.2rem;
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--primary-pink);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--soft-lilac);
+    border: 1.5px solid var(--secondary-purple);
+    border-radius: 8px;
+    color: var(--dark-purple);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  footer {
+    background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
+    color: var(--white);
+    padding: 2.5rem 2rem 1.2rem;
+    text-align: center;
+    border-top: 1px solid var(--primary-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  .footer-content p {
+    margin-bottom: 0.6rem;
+    opacity: 0.9;
+  }
+  /* Animações do logo */
+  @keyframes floatFlower {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes swingFlower {
+    0% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+    100% { transform: rotate(-6deg); }
+  }
+  @keyframes rotateColorFlower {
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink)); }
+    100% { filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink)); }
+  }
+  @keyframes pulseFlower {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+  /* Animação texto movimento horizontal */
+  .moving-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.7rem, 7vw, 4.5rem);
+    background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textMove 10s linear infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+  }
+  @keyframes textMove {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 </style>
 </head>
 <body>
@@ -171,7 +344,7 @@
     <nav>
       <div class="logo">
         <span class="logo-icon" title="Laudiane Lopes">🌸</span>
-        Laudiane Lopes
+        <div class="moving-text">Beleza, Perfume & Bem-Estar</div>
       </div>
       <ul class="nav-links">
         <li><a href="#home">Início</a></li>
@@ -183,23 +356,33 @@
     </nav>
   </header>
 
-  <section id="home" class="hero" style="padding-top: 6rem; text-align:center;">
-    <div class="moving-text" style="white-space: nowrap; overflow: hidden; display: inline-block; max-width: 100%;">
-      <span style="display: inline-block; padding-left: 100%; animation: marquee 10s linear infinite;">
-        Beleza, Perfume & Bem-Estar
-      </span>
-    </div>
-  </section>
-
-  <section id="catalogo">
+  <section id="catalogo" style="padding-top: 6rem; text-align: center;">
     <h2 class="section-title">Catálogo de Fotos do Admin</h2>
-    <button id="client-login-btn">Entrar para ver as fotos do catálogo</button>
+    <button id="client-login-btn">Visualizar Fotos do Catálogo</button>
     <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador"></div>
   </section>
 
-  <div id="photo-modal">
-    <span class="close-btn" title="Fechar">&times;</span>
-    <img src="" alt="Foto em alta resolução" />
+  <section id="sobre">
+    <h2 class="section-title">Sobre Laudiane Lopes</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p><strong>Laudiane Lopes</strong> está há 3 anos revendendo produtos das marcas O Boticário, Eldora, Natura e outras. Com atendimento personalizado, ela oferece as melhores opções para realçar sua beleza e autoestima.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <h2 class="section-title">Contato</h2>
+    <div class="contact-info" style="max-width: 600px; margin: 0 auto; background: var(--glass-purple); padding: 2rem; border-radius: 18px; border: 1.5px solid var(--primary-pink);">
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/5562982326163" target="_blank" style="color: var(--primary-pink); text-decoration:none;">+55 (62) 9 8232-6163</a></p>
+      <p><strong>Localidade:</strong> Goiânia, Goiás</p>
+      <p><strong>E-mail:</strong> <a href="mailto:laudiane@beleza.com" style="color: var(--primary-pink); text-decoration:none;">laudiane@beleza.com</a></p>
+    </div>
+  </section>
+
+  <div id="photo-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:4000;">
+    <span class="close-btn" title="Fechar" style="position:fixed; top:20px; right:30px; font-size:2.5rem; color:white; cursor:pointer; user-select:none;">&times;</span>
+    <img src="" alt="Foto em alta resolução" style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 0 40px rgba(255,255,255,0.7);" />
   </div>
 
 <script>
@@ -209,35 +392,18 @@
   const photoModalImg = photoModal.querySelector('img');
   const photoModalClose = photoModal.querySelector('.close-btn');
 
-  // Fotos de exemplo (simulando fotos adicionadas pelo admin)
-  // Em uso real, substituir por carregamento de localStorage ou backend
+  // Fotos simuladas (substitua por dados reais ou localStorage)
   const photos = [
-    {
-      id: 1,
-      name: "Foto 1",
-      desc: "Descrição da foto 1",
-      imageSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 2,
-      name: "Foto 2",
-      desc: "Descrição da foto 2",
-      imageSrc: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      id: 3,
-      name: "Foto 3",
-      desc: "Descrição da foto 3",
-      imageSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
-    }
+    { id: 1, name: "Foto 1", desc: "Descrição da foto 1", imageSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" },
+    { id: 2, name: "Foto 2", desc: "Descrição da foto 2", imageSrc: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" },
+    { id: 3, name: "Foto 3", desc: "Descrição da foto 3", imageSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" }
   ];
 
-  // Função para mostrar fotos no catálogo
   function showCatalog() {
     adminPhotosGallery.innerHTML = '';
     photos.forEach(photo => {
       const card = document.createElement('div');
-      card.classList.add('photo-card');
+      card.className = 'photo-card';
       card.style.margin = '0 10px 20px';
       card.style.textAlign = 'center';
       card.style.maxWidth = '220px';
@@ -256,8 +422,8 @@
       img.style.cursor = 'pointer';
 
       img.addEventListener('click', () => openPhotoModal(photo.imageSrc, photo.name));
-      img.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; });
-      img.addEventListener('mouseleave', () => { img.style.transform = 'scale(1)'; });
+      img.addEventListener('mouseenter', () => img.style.transform = 'scale(1.05)');
+      img.addEventListener('mouseleave', () => img.style.transform = 'scale(1)');
 
       card.appendChild(img);
       adminPhotosGallery.appendChild(card);
@@ -265,42 +431,29 @@
     adminPhotosGallery.classList.add('active');
   }
 
-  // Abrir modal foto alta resolução
   function openPhotoModal(src, alt) {
     photoModalImg.src = src;
     photoModalImg.alt = alt;
-    photoModal.classList.add('active');
+    photoModal.style.display = 'flex';
   }
   photoModalClose.addEventListener('click', () => {
-    photoModal.classList.remove('active');
+    photoModal.style.display = 'none';
     photoModalImg.src = '';
     photoModalImg.alt = '';
   });
   photoModal.addEventListener('click', e => {
     if(e.target === photoModal) {
-      photoModal.classList.remove('active');
+      photoModal.style.display = 'none';
       photoModalImg.src = '';
       photoModalImg.alt = '';
     }
   });
 
-  // Botão login cliente sem senha
   clientLoginBtn.addEventListener('click', () => {
-    // Simples acesso sem senha, só clique para liberar catálogo
-    alert('Você entrou para visualizar o catálogo!');
+    alert('Acesso liberado! Veja as fotos do catálogo.');
     clientLoginBtn.style.display = 'none';
     showCatalog();
   });
-
-  // Animação marquee para texto
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-  `;
-  document.head.appendChild(style);
 </script>
 </body>
 </html>
