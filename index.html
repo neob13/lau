@@ -220,96 +220,24 @@
     transform: translateX(-50%);
     border-radius: 2px;
   }
-  /* Seção de produtos com carrossel */
-  .products-carousel {
+  /* Galeria exclusiva para fotos do admin */
+  #admin-photos-gallery {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 1rem;
-    justify-content: center; /* centraliza os produtos */
+    justify-content: center;
   }
-  .product-card {
-    flex: 0 0 280px;
-    background: var(--glass-pink);
-    border-radius: 16px;
-    padding: 1.5rem;
-    scroll-snap-align: start;
-    box-shadow: 0 8px 30px var(--shadow-pink);
+  #admin-photos-gallery img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
   }
-  .product-card:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 15px 45px var(--shadow-purple);
-  }
-  .product-card img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
-  }
-  .product-card h3 {
-    color: var(--primary-pink);
-    margin-bottom: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
-  }
-  .product-card p {
-    font-size: 0.9rem;
-    color: var(--dark-purple);
-    margin-bottom: 0.8rem;
-  }
-  .badge {
-    display: inline-block;
-    background: var(--accent-green);
-    color: var(--white);
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-  .product-card .cta-button {
-    margin-top: auto;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 30px;
-    border: none;
-    background: var(--primary-pink);
-    color: var(--white);
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .product-card .cta-button:hover {
-    background: var(--secondary-purple);
-  }
-  /* Botão excluir produto */
-  .product-card button.delete-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255, 0, 0, 0.85);
-    border: none;
-    color: white;
-    font-weight: 700;
-    border-radius: 6px;
-    padding: 0.2rem 0.5rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-  .product-card button.delete-btn:hover {
-    opacity: 1;
+  #admin-photos-gallery img:hover {
+    transform: scale(1.05);
   }
   /* About Section */
   .about-content {
@@ -617,6 +545,7 @@
       <ul class="nav-links">
         <li><a href="#home">Início</a></li>
         <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -653,6 +582,13 @@
         <span class="badge">Hipoalergênico</span>
         <a href="#contato" class="cta-button">Quero Comprar</a>
       </div>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <h2 class="section-title">Catálogo de Fotos do Admin</h2>
+    <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador">
+      <!-- Fotos adicionadas pelo admin aparecerão aqui -->
     </div>
   </section>
 
@@ -742,20 +678,18 @@
 
   <!-- Painel Admin para Upload -->
   <section id="admin-panel">
-    <h3>Upload de Fotos para Produtos</h3>
+    <h3>Upload de Fotos para o Catálogo</h3>
     <form id="upload-form">
-      <label for="product-name">Nome do Produto</label>
-      <input type="text" id="product-name" required />
-      <label for="product-desc">Descrição</label>
-      <textarea id="product-desc" rows="3" required></textarea>
-      <label for="product-badge">Badge (ex: Vegano, Natural)</label>
-      <input type="text" id="product-badge" placeholder="Opcional" />
-      <label for="product-image">Selecione a imagem</label>
-      <input type="file" id="product-image" accept="image/*" required />
-      <button type="submit">Adicionar Produto</button>
+      <label for="photo-name">Nome da Foto</label>
+      <input type="text" id="photo-name" required />
+      <label for="photo-desc">Descrição</label>
+      <textarea id="photo-desc" rows="3" required></textarea>
+      <label for="photo-image">Selecione a imagem</label>
+      <input type="file" id="photo-image" accept="image/*" required />
+      <button type="submit">Adicionar Foto</button>
     </form>
     <div id="preview-container">
-      <h4>Produtos Recentemente Adicionados</h4>
+      <h4>Fotos Recentemente Adicionadas</h4>
       <div id="preview-list"></div>
     </div>
   </section>
@@ -768,13 +702,12 @@
   </footer>
 
 <script>
-  // Persistência do login admin via localStorage
   const adminLoginBtn = document.getElementById('admin-login-btn');
   const adminLoginModal = document.getElementById('admin-login-modal');
   const loginForm = document.getElementById('login-form');
   const adminPanel = document.getElementById('admin-panel');
-  const productsCarousel = document.getElementById('products-carousel');
   const previewList = document.getElementById('preview-list');
+  const adminPhotosGallery = document.getElementById('admin-photos-gallery');
 
   // Atualiza interface para login/logout
   function setLoggedIn(loggedIn) {
@@ -783,18 +716,13 @@
       adminLoginBtn.style.display = 'none';
       adminLoginModal.classList.remove('active');
       if (!document.getElementById('logout-btn')) createLogoutButton();
-      // Atualiza botões excluir nos produtos existentes
-      addDeleteButtons();
     } else {
       adminPanel.classList.remove('active');
       adminLoginBtn.style.display = 'block';
       adminLoginModal.classList.remove('active');
       localStorage.removeItem('adminLoggedIn');
-      // Remove logout btn se existir
       const logoutBtn = document.getElementById('logout-btn');
       if (logoutBtn) logoutBtn.remove();
-      // Remove botões excluir dos produtos
-      removeDeleteButtons();
     }
   }
 
@@ -813,10 +741,9 @@
     btn.onclick = () => {
       if (confirm('Deseja realmente sair?')) {
         setLoggedIn(false);
-        // Limpa produtos da UI para evitar duplicação
-        productsCarousel.innerHTML = '';
+        adminPhotosGallery.innerHTML = '';
         previewList.innerHTML = '';
-        loadStoredProducts();
+        loadStoredPhotos();
       }
     };
     adminPanel.appendChild(btn);
@@ -826,7 +753,7 @@
   window.addEventListener('DOMContentLoaded', () => {
     const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
     setLoggedIn(loggedIn);
-    loadStoredProducts();
+    loadStoredPhotos();
   });
 
   // Abrir modal login
@@ -860,10 +787,9 @@
   uploadForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    const name = document.getElementById('product-name').value.trim();
-    const desc = document.getElementById('product-desc').value.trim();
-    const badge = document.getElementById('product-badge').value.trim();
-    const fileInput = document.getElementById('product-image');
+    const name = document.getElementById('photo-name').value.trim();
+    const desc = document.getElementById('photo-desc').value.trim();
+    const fileInput = document.getElementById('photo-image');
     const file = fileInput.files[0];
 
     if (!file) {
@@ -873,131 +799,91 @@
 
     const reader = new FileReader();
     reader.onload = function(event) {
-      const product = {
+      const photo = {
         id: Date.now(),
         name,
         desc,
-        badge,
         imageSrc: event.target.result
       };
-      saveProduct(product);
-      addProductToUI(product);
-      addPreview(product);
+      savePhoto(photo);
+      addPhotoToGallery(photo);
+      addPreview(photo);
       uploadForm.reset();
-      alert('Produto adicionado com sucesso!');
+      alert('Foto adicionada com sucesso!');
     };
     reader.readAsDataURL(file);
   });
 
-  // Adiciona produto na seção visível para clientes
-  function addProductToUI(product) {
+  // Adiciona foto na galeria visível para clientes
+  function addPhotoToGallery(photo) {
     // Evita duplicação
-    if(productsCarousel.querySelector(`.product-card[data-id="${product.id}"]`)) return;
+    if(adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
 
     const card = document.createElement('div');
-    card.classList.add('product-card');
-    card.dataset.id = product.id;
+    card.classList.add('photo-card');
+    card.dataset.id = photo.id;
+    card.style.margin = '0 10px 20px';
+    card.style.textAlign = 'center';
+    card.style.maxWidth = '220px';
 
     const img = document.createElement('img');
-    img.src = product.imageSrc;
-    img.alt = product.name;
+    img.src = photo.imageSrc;
+    img.alt = photo.name;
+    img.style.width = '100%';
+    img.style.height = '200px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '14px';
+    img.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+    img.style.transition = 'transform 0.3s ease';
+    img.style.cursor = 'pointer';
+    img.title = photo.name + (photo.desc ? ": " + photo.desc : "");
 
-    const h3 = document.createElement('h3');
-    h3.textContent = product.name;
+    img.addEventListener('mouseenter', () => {
+      img.style.transform = 'scale(1.05)';
+    });
+    img.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1)';
+    });
 
-    const p = document.createElement('p');
-    p.textContent = product.desc;
+    const caption = document.createElement('p');
+    caption.textContent = photo.name;
+    caption.style.color = 'var(--primary-pink)';
+    caption.style.fontWeight = '600';
+    caption.style.marginTop = '0.5rem';
+    caption.style.fontFamily = "'Montserrat', sans-serif";
 
     card.appendChild(img);
-    card.appendChild(h3);
-    card.appendChild(p);
+    card.appendChild(caption);
 
-    if (product.badge) {
-      const spanBadge = document.createElement('span');
-      spanBadge.classList.add('badge');
-      spanBadge.textContent = product.badge;
-      card.appendChild(spanBadge);
-    }
-
-    const btnBuy = document.createElement('a');
-    btnBuy.classList.add('cta-button');
-    btnBuy.href = '#contato';
-    btnBuy.textContent = 'Quero Comprar';
-    card.appendChild(btnBuy);
-
-    // Se admin estiver logado, adiciona botão excluir
-    if (localStorage.getItem('adminLoggedIn') === 'true') {
-      const btnDelete = document.createElement('button');
-      btnDelete.classList.add('delete-btn');
-      btnDelete.textContent = 'Excluir';
-      btnDelete.title = 'Excluir Produto';
-      btnDelete.onclick = () => deleteProduct(product.id);
-      card.appendChild(btnDelete);
-    }
-
-    productsCarousel.appendChild(card);
+    adminPhotosGallery.appendChild(card);
   }
 
   // Adiciona preview no painel admin
-  function addPreview(product) {
+  function addPreview(photo) {
     // Evita duplicação
-    if(previewList.querySelector(`img[data-id="${product.id}"]`)) return;
+    if(previewList.querySelector(`img[data-id="${photo.id}"]`)) return;
 
     const previewImg = document.createElement('img');
-    previewImg.src = product.imageSrc;
-    previewImg.alt = product.name;
-    previewImg.dataset.id = product.id;
+    previewImg.src = photo.imageSrc;
+    previewImg.alt = photo.name;
+    previewImg.dataset.id = photo.id;
     previewList.appendChild(previewImg);
   }
 
-  // Salva produto no localStorage
-  function saveProduct(product) {
-    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
-    products.push(product);
-    localStorage.setItem('uploadedProducts', JSON.stringify(products));
+  // Salva foto no localStorage
+  function savePhoto(photo) {
+    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+    photos.push(photo);
+    localStorage.setItem('adminPhotos', JSON.stringify(photos));
   }
 
-  // Carrega produtos do localStorage na UI e preview
-  function loadStoredProducts() {
-    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
-    products.forEach(product => {
-      addProductToUI(product);
-      addPreview(product);
+  // Carrega fotos do localStorage na galeria e preview
+  function loadStoredPhotos() {
+    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+    photos.forEach(photo => {
+      addPhotoToGallery(photo);
+      addPreview(photo);
     });
-  }
-
-  // Remove produto do localStorage e da UI
-  function deleteProduct(id) {
-    if (!confirm('Deseja realmente excluir este produto?')) return;
-    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
-    products = products.filter(p => p.id !== id);
-    localStorage.setItem('uploadedProducts', JSON.stringify(products));
-    // Remove do carrossel
-    const card = productsCarousel.querySelector(`.product-card[data-id="${id}"]`);
-    if (card) card.remove();
-    // Remove do preview admin
-    const previewImg = previewList.querySelector(`img[data-id="${id}"]`);
-    if (previewImg) previewImg.remove();
-  }
-
-  // Atualiza botões excluir nos produtos visíveis (após login/logout)
-  function addDeleteButtons() {
-    const cards = productsCarousel.querySelectorAll('.product-card');
-    cards.forEach(card => {
-      if (!card.querySelector('.delete-btn')) {
-        const id = Number(card.dataset.id);
-        const btnDelete = document.createElement('button');
-        btnDelete.classList.add('delete-btn');
-        btnDelete.textContent = 'Excluir';
-        btnDelete.title = 'Excluir Produto';
-        btnDelete.onclick = () => deleteProduct(id);
-        card.appendChild(btnDelete);
-      }
-    });
-  }
-  function removeDeleteButtons() {
-    const buttons = productsCarousel.querySelectorAll('.delete-btn');
-    buttons.forEach(btn => btn.remove());
   }
 </script>
 </body>
