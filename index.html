@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laudiane Lopes - Fotografia</title>
     <style>
-        /* Cores principais */
+        /* Variáveis de cores */
         :root {
             --primary-purple: #6C4D8B;
             --secondary-purple: #8B6C9C;
             --white: #FFF;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-hover: rgba(255, 255, 255, 0.1);
-            --background: #1A1A1A;
-            --text: #E0E0E0;
-            --accent: #FFD700;
+            --glass-purple: rgba(255, 255, 255, 0.05);
+            --dark-brown: #3C2415;
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --shadow-gold: rgba(218, 165, 32, 0.2);
         }
 
+        /* Reset e configurações básicas */
         * {
             margin: 0;
             padding: 0;
@@ -25,8 +25,8 @@
         }
 
         body {
-            background: var(--background);
-            color: var(--text);
+            background: var(--dark-brown);
+            color: var(--white);
             padding: 2rem;
         }
 
@@ -56,7 +56,7 @@
             height: 200px;
             object-fit: cover;
             border-radius: 14px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -65,29 +65,80 @@
             transform: scale(1.05);
         }
 
-        /* Modal foto alta resolução */
+        /* Botões de exclusão (apenas para admin) */
+        .delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            color: white;
+            font-weight: 700;
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            display: none; /* Inicialmente invisível para não-admins */
+        }
+
+        .delete-btn:hover {
+            opacity: 1;
+        }
+
+        /* Estilos do painel admin */
+        #admin-panel {
+            display: none;
+            max-width: 700px;
+            margin: 2rem auto;
+            background: var(--glass-purple);
+            padding: 2rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--primary-purple);
+        }
+
+        /* Modal de login admin */
+        #admin-login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .modal-content {
+            background: var(--glass-purple);
+            padding: 2rem;
+            border-radius: 18px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Modal de visualização de fotos */
         #photo-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 4000;
         }
 
-        #photo-modal.active {
-            display: flex;
-        }
-
         #photo-modal img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 12px;
-            box-shadow: 0 0 40px rgba(255,255,255,0.7);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
         }
 
         .close-btn {
@@ -99,231 +150,30 @@
             cursor: pointer;
             user-select: none;
         }
-
-        /* Painel Admin */
-        #admin-login-modal,
-        #catalog-login-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-        }
-
-        .modal-content {
-            background: var(--glass);
-            padding: 2rem;
-            border-radius: 18px;
-            max-width: 400px;
-            width: 100%;
-            position: relative;
-        }
-
-        .modal-content h3 {
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .modal-content form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .modal-content input {
-            padding: 0.7rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .modal-content button {
-            background: var(--primary-purple);
-            color: white;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .modal-content button:hover {
-            background: var(--secondary-purple);
-        }
-
-        /* Upload Admin */
-        #admin-panel {
-            display: none;
-            max-width: 700px;
-            margin: 2rem auto;
-            background: var(--glass);
-            padding: 2rem;
-            border-radius: 18px;
-            border: 1.5px solid var(--primary-purple);
-        }
-
-        #admin-panel h3 {
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        #upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        #upload-form label {
-            font-weight: 600;
-        }
-
-        #upload-form input[type="text"],
-        #upload-form textarea,
-        #upload-form input[type="file"] {
-            padding: 0.7rem;
-            border: none;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        #upload-form button {
-            background: var(--primary-purple);
-            color: white;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        #upload-form button:hover {
-            background: var(--secondary-purple);
-        }
-
-        /* Preview Admin */
-        #preview-container {
-            margin-top: 2rem;
-        }
-
-        #preview-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        #preview-list img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.2);
-        }
-
-        /* Botões Admin */
-        #admin-logout-btn {
-            margin: 1rem auto;
-            padding: 0.5rem 1rem;
-            background: var(--secondary-purple);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        #admin-logout-btn:hover {
-            background: #a981bf;
-        }
-
-        /* Estilo da Galeria */
-        .photo-card {
-            margin: 0 10px 20px;
-            text-align: center;
-            max-width: 220px;
-            position: relative;
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 14px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .photo-card img:hover {
-            transform: scale(1.05);
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(255,0,0,0.8);
-            border: none;
-            color: white;
-            font-weight: 700;
-            border-radius: 6px;
-            padding: 0.3rem 0.6rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: opacity 0.3s ease;
-        }
-
-        .delete-btn:hover {
-            opacity: 1;
-        }
-
-        /* Botão Admin */
-        #admin-login-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary-purple);
-            color: white;
-            border: none;
-            padding: 1rem 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            z-index: 1000;
-            transition: background 0.3s ease;
-        }
-
-        #admin-login-btn:hover {
-            background: var(--secondary-purple);
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Galeria Pública -->
+        <!-- Seção de Catálogo Público -->
         <section id="catalogo">
             <h2 class="section-title">Catálogo de Fotos</h2>
-            <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador"></div>
+            <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos"></div>
         </section>
 
         <!-- Botão Admin -->
-        <button id="admin-login-btn" title="Login Admin">⚙️</button>
+        <button id="admin-login-btn" style="position: fixed; bottom: 20px; right: 20px; background: var(--primary-purple); color: white; border: none; padding: 1rem 1.5rem; border-radius: 50px; cursor: pointer;">
+            ⚙️ Login Admin
+        </button>
 
-        <!-- Modal Admin -->
-        <div id="admin-login-modal" class="modal">
+        <!-- Modal de Login do Admin -->
+        <div id="admin-login-modal">
             <div class="modal-content">
                 <h3>Login Admin</h3>
                 <form id="login-form">
-                    <label for="admin-user">Usuário</label>
-                    <input type="text" id="admin-user" required />
-                    <label for="admin-pass">Senha</label>
-                    <input type="password" id="admin-pass" required />
+                    <label for="admin-user">Usuário:</label>
+                    <input type="text" id="admin-user" required>
+                    <label for="admin-pass">Senha:</label>
+                    <input type="password" id="admin-pass" required>
                     <button type="submit">Entrar</button>
                 </form>
             </div>
@@ -331,31 +181,34 @@
 
         <!-- Painel Admin -->
         <section id="admin-panel">
-            <h3>Upload de Fotos para o Catálogo</h3>
+            <h3>Upload de Fotos</h3>
             <form id="upload-form">
-                <label for="photo-name">Nome da Foto</label>
-                <input type="text" id="photo-name" required />
-                <label for="photo-desc">Descrição</label>
+                <label for="photo-name">Nome:</label>
+                <input type="text" id="photo-name" required>
+                <label for="photo-desc">Descrição:</label>
                 <textarea id="photo-desc" rows="3" required></textarea>
-                <label for="photo-image">Selecione a imagem</label>
-                <input type="file" id="photo-image" accept="image/*" required />
+                <label for="photo-image">Imagem:</label>
+                <input type="file" id="photo-image" accept="image/*" required>
                 <button type="submit">Adicionar Foto</button>
             </form>
             <div id="preview-container">
-                <h4>Fotos Recentemente Adicionadas</h4>
-                <div id="preview-list"></div>
+                <h4>Pré-visualização:</h4>
+                <div id="preview-list" style="display: flex; gap: 1rem;"></div>
             </div>
+            <button id="admin-logout-btn" style="display: none; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--secondary-purple); color: white; border: none; cursor: pointer;">
+                Logout Admin
+            </button>
         </section>
     </div>
 
-    <!-- Modal de Fotos -->
+    <!-- Modal de Visualização de Fotos -->
     <div id="photo-modal">
         <span class="close-btn">&times;</span>
-        <img src="" alt="Foto em alta resolução" />
+        <img src="" alt="Foto em alta resolução">
     </div>
 
     <script>
-        // Elementos
+        // Elementos do DOM
         const adminLoginBtn = document.getElementById('admin-login-btn');
         const adminLoginModal = document.getElementById('admin-login-modal');
         const loginForm = document.getElementById('login-form');
@@ -366,246 +219,180 @@
         const photoModalImg = photoModal.querySelector('img');
         const photoModalClose = document.querySelector('.close-btn');
 
-        // Estado login admin
-        function setAdminLoggedIn(loggedIn) {
-            if (loggedIn) {
-                adminPanel.style.display = 'block';
-                adminLoginBtn.style.display = 'none';
-                adminLoginModal.style.display = 'none';
-                if (!document.getElementById('admin-logout-btn')) createAdminLogoutButton();
-                refreshAdminGalleryButtons();
-            } else {
-                adminPanel.style.display = 'none';
-                adminLoginBtn.style.display = 'block';
-                adminLoginModal.style.display = 'none';
-                localStorage.removeItem('adminLoggedIn');
-                const btn = document.getElementById('admin-logout-btn');
-                if (btn) btn.remove();
-                refreshAdminGalleryButtons();
-            }
+        // Estado do administrador
+        let adminLoggedIn = false;
+
+        // Função para mostrar/ocultar painel admin
+        function toggleAdminPanel(show) {
+            adminPanel.style.display = show ? 'block' : 'none';
+            adminLoginBtn.style.display = show ? 'none' : 'block';
+            adminLoggedIn = show;
+            
+            // Mostrar botão de logout se logado
+            const logoutBtn = document.getElementById('admin-logout-btn');
+            logoutBtn.style.display = show ? 'block' : 'none';
+            
+            // Atualizar visibilidade dos botões de exclusão
+            updateDeleteButtons();
         }
 
-        // Cria botão de logout admin
-        function createAdminLogoutButton() {
-            const btn = document.createElement('button');
-            btn.id = 'admin-logout-btn';
-            btn.textContent = 'Logout Admin';
-            btn.style.marginTop = '1rem';
-            btn.style.padding = '0.5rem 1rem';
-            btn.style.background = 'var(--secondary-purple)';
-            btn.style.color = 'white';
-            btn.style.border = 'none';
-            btn.style.borderRadius = '8px';
-            btn.style.cursor = 'pointer';
-            btn.onclick = () => {
-                if (confirm('Deseja realmente sair?')) {
-                    setAdminLoggedIn(false);
-                }
-            };
-            adminLoginBtn.insertAdjacentElement('afterend', btn);
+        // Atualiza visibilidade dos botões de exclusão
+        function updateDeleteButtons() {
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.style.display = adminLoggedIn ? 'block' : 'none';
+            });
         }
 
-        // Atualiza botões de exclusão
-        function refreshAdminGalleryButtons() {
-            document.querySelectorAll('.delete-btn').forEach(btn => btn.remove());
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                document.querySelectorAll('.photo-card').forEach(card => {
-                    const btnDelete = document.createElement('button');
-                    btnDelete.textContent = 'Excluir';
-                    btnDelete.title = 'Excluir Foto';
-                    btnDelete.className = 'delete-btn';
-                    btnDelete.onclick = () => deletePhoto(card.dataset.id);
-                    card.appendChild(btnDelete);
-                });
-            }
+        // Função para adicionar foto ao catálogo
+        function addPhotoToGallery(photo) {
+            const existingCard = adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`);
+            if (existingCard) return;
+
+            // Criar card
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.dataset.id = photo.id;
+            
+            // Imagem
+            const img = document.createElement('img');
+            img.src = photo.imageSrc;
+            img.alt = photo.name;
+            img.title = photo.desc;
+            img.style.width = '100%';
+            img.style.height = '200px';
+            img.style.objectFit = 'cover';
+            img.addEventListener('click', () => openPhotoModal(photo.imageSrc));
+
+            // Botão de exclusão (apenas para admin)
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Excluir';
+            deleteBtn.onclick = () => deletePhoto(photo.id);
+
+            // Adicionar elementos
+            card.appendChild(img);
+            card.appendChild(deleteBtn);
+            adminPhotosGallery.appendChild(card);
         }
 
-        // Eventos login admin
-        adminLoginBtn.addEventListener('click', () => {
-            adminLoginModal.style.display = 'block';
+        // Função para abrir modal de visualização
+        function openPhotoModal(src) {
+            photoModalImg.src = src;
+            photoModal.style.display = 'flex';
+        }
+
+        // Função para fechar modal
+        photoModalClose.addEventListener('click', () => {
+            photoModal.style.display = 'none';
+            photoModalImg.src = '';
         });
 
-        adminLoginModal.addEventListener('click', e => {
+        // Função para deletar foto
+        function deletePhoto(id) {
+            if (!confirm('Deseja realmente excluir esta foto?')) return;
+
+            // Remover da galeria
+            const card = adminPhotosGallery.querySelector(`.photo-card[data-id="${id}"]`);
+            if (card) card.remove();
+
+            // Remover do localStorage
+            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+            photos = photos.filter(p => p.id !== id);
+            localStorage.setItem('adminPhotos', JSON.stringify(photos));
+        }
+
+        // Lógica de login/admin
+        adminLoginBtn.addEventListener('click', () => {
+            adminLoginModal.style.display = 'flex';
+        });
+
+        adminLoginModal.addEventListener('click', (e) => {
             if (e.target === adminLoginModal) {
                 adminLoginModal.style.display = 'none';
             }
         });
 
-        loginForm.addEventListener('submit', e => {
+        loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const user = document.getElementById('admin-user').value.trim();
-            const pass = document.getElementById('admin-pass').value.trim();
-            
-            if (user === 'admin' && pass === '@lau2025#') {
-                alert('Login Admin bem-sucedido!');
-                localStorage.setItem('adminLoggedIn', 'true');
-                setAdminLoggedIn(true);
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            if (user === 'admin' && pass === 'admin123') {
+                toggleAdminPanel(true);
+                adminLoginModal.style.display = 'none';
+                alert('Login bem-sucedido!');
+                
+                // Recarregar fotos para atualizar botões
+                loadStoredPhotos();
             } else {
-                alert('Usuário ou senha incorretos.');
+                alert('Credenciais inválidas!');
             }
         });
 
+        // Logout do admin
+        document.getElementById('admin-logout-btn').addEventListener('click', () => {
+            toggleAdminPanel(false);
+            localStorage.removeItem('adminPhotos'); // Exemplo: Limpar fotos temporárias
+            alert('Logout realizado!');
+        });
+
         // Upload de fotos
-        const uploadForm = document.getElementById('upload-form');
-        uploadForm.addEventListener('submit', e => {
+        document.getElementById('upload-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('photo-name').value.trim();
-            const desc = document.getElementById('photo-desc').value.trim();
+            const name = document.getElementById('photo-name').value;
+            const desc = document.getElementById('photo-desc').value;
             const fileInput = document.getElementById('photo-image');
             const file = fileInput.files[0];
 
             if (!file) {
-                alert('Selecione uma imagem.');
+                alert('Selecione uma imagem!');
                 return;
             }
 
+            // Lê imagem em base64
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = (event) => {
                 const photo = {
                     id: Date.now(),
                     name,
                     desc,
                     imageSrc: event.target.result
                 };
-                savePhoto(photo);
-                addPhotoToGallery(photo);
-                addPreview(photo);
-                uploadForm.reset();
-                alert('Foto adicionada com sucesso!');
-            };
-            reader.readAsDataURL(file);
 
-            // Salva foto no localStorage
-            function savePhoto(photo) {
+                // Salva no localStorage
                 let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
                 photos.push(photo);
                 localStorage.setItem('adminPhotos', JSON.stringify(photos));
-            }
-        });
 
-        // Carrega fotos do localStorage
-        function loadStoredPhotos() {
-            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-            photos.forEach(photo => {
+                // Atualiza galeria
                 addPhotoToGallery(photo);
                 addPreview(photo);
-            });
-        }
+                document.getElementById('upload-form').reset();
+                alert('Foto adicionada!');
+            };
+            reader.readAsDataURL(file);
+        });
 
-        // Adiciona foto na galeria
-        function addPhotoToGallery(photo) {
-            if (adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
-
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.dataset.id = photo.id;
-            card.style.margin = '0 10px 20px';
-            card.style.textAlign = 'center';
-            card.style.maxWidth = '220px';
-            card.style.position = 'relative';
-
-            const img = document.createElement('img');
-            img.src = photo.imageSrc;
-            img.alt = photo.name;
-            img.title = photo.name + (photo.desc ? ": " + photo.desc : "");
-            img.style.width = '100%';
-            img.style.height = '200px';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '14px';
-            img.style.boxShadow = '0 6px 20px rgba(255,255,255,0.15)';
-            img.style.cursor = 'pointer';
-            img.style.transition = 'transform 0.3s ease';
-            img.addEventListener('click', () => openPhotoModal(photo.imageSrc, photo.name));
-            img.addEventListener('mouseenter', () => img.style.transform = 'scale(1.05)');
-            img.addEventListener('mouseleave', () => img.style.transform = 'scale(1)');
-            card.appendChild(img);
-
-            // Botão de exclusão
-            const btnDelete = document.createElement('button');
-            btnDelete.textContent = 'Excluir';
-            btnDelete.title = 'Excluir Foto';
-            btnDelete.className = 'delete-btn';
-            btnDelete.style.position = 'absolute';
-            btnDelete.style.top = '6px';
-            btnDelete.style.right = '6px';
-            btnDelete.style.background = 'rgba(255,0,0,0.8)';
-            btnDelete.style.color = 'white';
-            btnDelete.style.fontWeight = '700';
-            btnDelete.style.border = 'none';
-            btnDelete.style.borderRadius = '6px';
-            btnDelete.style.padding = '0.3rem 0.6rem';
-            btnDelete.style.fontSize = '0.9rem';
-            btnDelete.style.opacity = '0.8';
-            btnDelete.style.transition = 'opacity 0.3s ease';
-            btnDelete.addEventListener('click', () => deletePhoto(photo.id));
-            btnDelete.addEventListener('mouseenter', () => btnDelete.style.opacity = '1');
-            btnDelete.addEventListener('mouseleave', () => btnDelete.style.opacity = '0.8');
-            card.appendChild(btnDelete);
-
-            adminPhotosGallery.appendChild(card);
-        }
-
-        // Adiciona preview no painel admin
+        // Pré-visualização no painel admin
         function addPreview(photo) {
-            if (previewList.querySelector(`img[data-id="${photo.id}"]`)) return;
-
             const previewImg = document.createElement('img');
             previewImg.src = photo.imageSrc;
-            previewImg.alt = photo.name;
-            previewImg.dataset.id = photo.id;
             previewImg.style.width = '100px';
             previewImg.style.height = '100px';
             previewImg.style.objectFit = 'cover';
-            previewImg.style.borderRadius = '8px';
-            previewImg.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
             previewList.appendChild(previewImg);
         }
 
-        // Deleta foto
-        function deletePhoto(id) {
-            if (!confirm('Deseja realmente excluir esta foto?')) return;
-
-            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-            photos = photos.filter(p => p.id !== id);
-            localStorage.setItem('adminPhotos', JSON.stringify(photos));
-
-            // Remove da galeria
-            const card = adminPhotosGallery.querySelector(`.photo-card[data-id="${id}"]`);
-            if (card) card.remove();
-
-            // Remove do preview
-            const previewImg = previewList.querySelector(`img[data-id="${id}"]`);
-            if (previewImg) previewImg.remove();
+        // Carregar fotos salvas no localStorage
+        function loadStoredPhotos() {
+            const storedPhotos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+            storedPhotos.forEach(addPhotoToGallery);
         }
 
-        // Modal foto alta resolução
-        function openPhotoModal(src, alt) {
-            photoModalImg.src = src;
-            photoModalImg.alt = alt;
-            photoModal.classList.add('active');
-        }
-
-        photoModalClose.addEventListener('click', () => {
-            photoModal.classList.remove('active');
-            photoModalImg.src = '';
-            photoModalImg.alt = '';
-        });
-
-        photoModal.addEventListener('click', e => {
-            if (e.target === photoModal) {
-                photoModal.classList.remove('active');
-                photoModalImg.src = '';
-                photoModalImg.alt = '';
-            }
-        });
-
-        // Carrega fotos ao iniciar
+        // Eventos de inicialização
         window.addEventListener('DOMContentLoaded', () => {
             loadStoredPhotos();
         });
-
-        // Inicializa painel admin
-        loadStoredPhotos();
     </script>
 </body>
 </html>
