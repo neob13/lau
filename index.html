@@ -1,787 +1,611 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Laudiane Lopes - Beleza & Perfumes</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --primary-pink: #e75480;
-    --secondary-purple: #a259c6;
-    --accent-green: #6ee7b7;
-    --soft-lilac: #f3e8ff;
-    --white: #fff;
-    --dark-purple: #3a2244;
-    --shadow-pink: rgba(231, 84, 128, 0.15);
-    --shadow-purple: rgba(162, 89, 198, 0.15);
-    --glass-pink: rgba(231, 84, 128, 0.10);
-    --glass-purple: rgba(162, 89, 198, 0.10);
-  }
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
-    color: var(--dark-purple);
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-  }
-  header {
-    position: fixed; top: 0; width: 100%;
-    padding: 1rem 0;
-    background: rgba(243, 232, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--secondary-purple);
-    z-index: 1000;
-  }
-  nav {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-  }
-  .logo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-pink);
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    cursor: pointer;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--secondary-purple);
-    text-decoration: none;
-    font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    padding: 0.7rem 1.2rem;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .nav-links a:hover {
-    background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
-    color: var(--white);
-    transform: translateY(-2px) scale(1.07);
-  }
-  section {
-    padding: 7rem 2rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .section-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--secondary-purple);
-    text-align: center;
-    margin-bottom: 3.5rem;
-    background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    width: 90px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
-    transform: translateX(-50%);
-    border-radius: 2px;
-  }
-  /* Produtos com centralização e flutuação */
-  #products-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-  .product-card {
-    background: var(--glass-pink);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 8px 30px var(--shadow-pink);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 280px;
-    position: relative;
-    animation: floatUpDown 4s ease-in-out infinite;
-  }
-  .product-card:nth-child(even) {
-    animation-delay: 2s;
-  }
-  .product-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 45px var(--shadow-purple);
-  }
-  .product-card img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
-  }
-  .product-card h3 {
-    color: var(--primary-pink);
-    margin-bottom: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
-  }
-  .product-card p {
-    font-size: 0.9rem;
-    color: var(--dark-purple);
-    margin-bottom: 0.8rem;
-  }
-  .badge {
-    display: inline-block;
-    background: var(--accent-green);
-    color: var(--white);
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-  .product-card .cta-button {
-    margin-top: auto;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 30px;
-    border: none;
-    background: var(--primary-pink);
-    color: var(--white);
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    text-decoration: none;
-  }
-  .product-card .cta-button:hover {
-    background: var(--secondary-purple);
-  }
-  .product-card button.delete-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255, 0, 0, 0.85);
-    border: none;
-    color: white;
-    font-weight: 700;
-    border-radius: 6px;
-    padding: 0.2rem 0.5rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-  .product-card button.delete-btn:hover {
-    opacity: 1;
-  }
-  /* Catálogo - fotos admin */
-  #admin-photos-gallery {
-    display: none;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  #admin-photos-gallery.active {
-    display: flex;
-  }
-  #admin-photos-gallery .photo-card {
-    margin: 0 10px 20px;
-    text-align: center;
-    max-width: 220px;
-    position: relative;
-  }
-  #admin-photos-gallery img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 14px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  #admin-photos-gallery img:hover {
-    transform: scale(1.05);
-  }
-  #admin-photos-gallery button.delete-btn {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    background: rgba(255,0,0,0.8);
-    border: none;
-    color: white;
-    font-weight: 700;
-    border-radius: 6px;
-    padding: 0.3rem 0.6rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-  #admin-photos-gallery button.delete-btn:hover {
-    opacity: 1;
-  }
-  /* Modal foto alta resolução */
-  #photo-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 4000;
-  }
-  #photo-modal.active {
-    display: flex;
-  }
-  #photo-modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 0 40px rgba(255,255,255,0.7);
-  }
-  #photo-modal .close-btn {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    font-size: 2.5rem;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-  }
-  /* Modal login cliente */
-  #catalog-login-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 3000;
-  }
-  #catalog-login-modal.active {
-    display: flex;
-  }
-  #catalog-login-modal .modal-content {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 12px;
-    width: 320px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    color: var(--dark-purple);
-  }
-  #catalog-login-modal h3 {
-    margin-bottom: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    color: var(--primary-pink);
-    text-align: center;
-  }
-  #catalog-login-modal label {
-    display: block;
-    margin-bottom: 0.4rem;
-    font-weight: 600;
-  }
-  #catalog-login-modal input[type="text"],
-  #catalog-login-modal input[type="password"] {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border: 1.5px solid var(--secondary-purple);
-    border-radius: 6px;
-    font-size: 1rem;
-  }
-  #catalog-login-modal button {
-    background: var(--primary-pink);
-    color: var(--white);
-    border: none;
-    padding: 0.8rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
-  #catalog-login-modal button:hover {
-    background: var(--secondary-purple);
-  }
-  /* Botões logout */
-  #admin-logout-btn, #client-logout-btn {
-    margin: 1rem auto;
-    display: block;
-    padding: 0.5rem 1rem;
-    background: var(--secondary-purple);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  #admin-logout-btn:hover, #client-logout-btn:hover {
-    background: var(--primary-pink);
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laudiane Lopes - Fotografia</title>
+    <style>
+        /* Cores principais */
+        :root {
+            --primary-purple: #6C4D8B;
+            --secondary-purple: #8B6C9C;
+            --white: #FFF;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-hover: rgba(255, 255, 255, 0.1);
+            --background: #1A1A1A;
+            --text: #E0E0E0;
+            --accent: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Galeria pública */
+        #admin-photos-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .photo-card {
+            margin: 0 10px 20px;
+            text-align: center;
+            max-width: 220px;
+            position: relative;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal foto alta resolução */
+        #photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 4000;
+        }
+
+        #photo-modal.active {
+            display: flex;
+        }
+
+        #photo-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(255,255,255,0.7);
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Painel Admin */
+        #admin-login-modal,
+        #catalog-login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .modal-content {
+            background: var(--glass);
+            padding: 2rem;
+            border-radius: 18px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-content input {
+            padding: 0.7rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .modal-content button {
+            background: var(--primary-purple);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background: var(--secondary-purple);
+        }
+
+        /* Upload Admin */
+        #admin-panel {
+            display: none;
+            max-width: 700px;
+            margin: 2rem auto;
+            background: var(--glass);
+            padding: 2rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--primary-purple);
+        }
+
+        #admin-panel h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        #upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #upload-form label {
+            font-weight: 600;
+        }
+
+        #upload-form input[type="text"],
+        #upload-form textarea,
+        #upload-form input[type="file"] {
+            padding: 0.7rem;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        #upload-form button {
+            background: var(--primary-purple);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #upload-form button:hover {
+            background: var(--secondary-purple);
+        }
+
+        /* Preview Admin */
+        #preview-container {
+            margin-top: 2rem;
+        }
+
+        #preview-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        #preview-list img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        /* Botões Admin */
+        #admin-logout-btn {
+            margin: 1rem auto;
+            padding: 0.5rem 1rem;
+            background: var(--secondary-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        #admin-logout-btn:hover {
+            background: #a981bf;
+        }
+
+        /* Estilo da Galeria */
+        .photo-card {
+            margin: 0 10px 20px;
+            text-align: center;
+            max-width: 220px;
+            position: relative;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(255,0,0,0.8);
+            border: none;
+            color: white;
+            font-weight: 700;
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            opacity: 1;
+        }
+
+        /* Botão Admin */
+        #admin-login-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 1rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        #admin-login-btn:hover {
+            background: var(--secondary-purple);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">
-        <span class="logo-icon" title="Laudiane Lopes">🌸</span>
-        Laudiane Lopes
-      </div>
-      <ul class="nav-links">
-        <li><a href="#home">Início</a></li>
-        <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#catalogo" id="catalog-link">Catálogo</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
+    <div class="container">
+        <!-- Galeria Pública -->
+        <section id="catalogo">
+            <h2 class="section-title">Catálogo de Fotos</h2>
+            <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador"></div>
+        </section>
 
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Beleza, Perfume & Bem-Estar</h1>
-      <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora • Eudora • Kit Natura Ekos</p>
-      <p class="hero-description">
-        Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
-        Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
-      </p>
-      <a href="#contato" class="cta-button">Peça seu Catálogo</a>
+        <!-- Botão Admin -->
+        <button id="admin-login-btn" title="Login Admin">⚙️</button>
+
+        <!-- Modal Admin -->
+        <div id="admin-login-modal" class="modal">
+            <div class="modal-content">
+                <h3>Login Admin</h3>
+                <form id="login-form">
+                    <label for="admin-user">Usuário</label>
+                    <input type="text" id="admin-user" required />
+                    <label for="admin-pass">Senha</label>
+                    <input type="password" id="admin-pass" required />
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Painel Admin -->
+        <section id="admin-panel">
+            <h3>Upload de Fotos para o Catálogo</h3>
+            <form id="upload-form">
+                <label for="photo-name">Nome da Foto</label>
+                <input type="text" id="photo-name" required />
+                <label for="photo-desc">Descrição</label>
+                <textarea id="photo-desc" rows="3" required></textarea>
+                <label for="photo-image">Selecione a imagem</label>
+                <input type="file" id="photo-image" accept="image/*" required />
+                <button type="submit">Adicionar Foto</button>
+            </form>
+            <div id="preview-container">
+                <h4>Fotos Recentemente Adicionadas</h4>
+                <div id="preview-list"></div>
+            </div>
+        </section>
     </div>
-  </section>
 
-  <section id="produtos">
-    <h2 class="section-title">Produtos em Destaque</h2>
-    <div id="products-section">
-      <div class="product-card" data-id="p1">
-        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Kit Natura Ekos" loading="lazy" />
-        <h3>Kit Natura Ekos</h3>
-        <p>Kit completo com produtos naturais da linha Ekos.</p>
-        <a href="#contato" class="cta-button">Quero Comprar</a>
-        <button class="delete-btn" title="Excluir Produto">Excluir</button>
-      </div>
-      <div class="product-card" data-id="p2">
-        <img src="https://images.unsplash.com/photo-1583247982417-1f3f5f0e9e8c?auto=format&fit=crop&w=400&q=80" alt="Eudora" loading="lazy" />
-        <h3>Perfume Eudora</h3>
-        <p>Fragrância marcante e sofisticada.</p>
-        <a href="#contato" class="cta-button">Quero Comprar</a>
-        <button class="delete-btn" title="Excluir Produto">Excluir</button>
-      </div>
+    <!-- Modal de Fotos -->
+    <div id="photo-modal">
+        <span class="close-btn">&times;</span>
+        <img src="" alt="Foto em alta resolução" />
     </div>
-  </section>
 
-  <section id="catalogo">
-    <h2 class="section-title">Catálogo de Fotos do Admin</h2>
-    <button id="client-login-btn" class="cta-button" style="margin-bottom: 1rem;">Entrar para ver fotos em alta resolução</button>
-    <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador" style="display:none;"></div>
-  </section>
+    <script>
+        // Elementos
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminLoginModal = document.getElementById('admin-login-modal');
+        const loginForm = document.getElementById('login-form');
+        const adminPanel = document.getElementById('admin-panel');
+        const previewList = document.getElementById('preview-list');
+        const adminPhotosGallery = document.getElementById('admin-photos-gallery');
+        const photoModal = document.getElementById('photo-modal');
+        const photoModalImg = photoModal.querySelector('img');
+        const photoModalClose = document.querySelector('.close-btn');
 
-  <section id="sobre">
-    <h2 class="section-title">Sobre Laudiane Lopes</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p><strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.</p>
-        <p>Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!</p>
-        <p><b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b></p>
-      </div>
-      <div class="about-image"><span class="flower-icon" title="Flor da Beleza">🌸</span></div>
-    </div>
-  </section>
-
-  <section id="contato">
-    <h2 class="section-title">Fale com Laudiane</h2>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <h3>Atendimento & Pedidos</h3>
-        <div class="contact-item"><strong>📱</strong><span><a href="https://wa.me/5562982326163" target="_blank">WhatsApp: (62) 9 8232-6163</a></span></div>
-        <div class="contact-item"><strong>📧</strong><span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span></div>
-        <div class="contact-item"><strong>📍</strong><span>Palmas, Tocantins</span></div>
-        <div class="contact-item"><strong>⏰</strong><span>Seg a Sáb: 8h às 20h</span></div>
-      </div>
-      <div class="contact-form">
-        <h3>Peça seu Catálogo ou Faça um Pedido</h3>
-        <form>
-          <div class="form-group"><label for="name">Nome</label><input type="text" id="name" name="name" required /></div>
-          <div class="form-group"><label for="email">E-mail</label><input type="email" id="email" name="email" required /></div>
-          <div class="form-group"><label for="phone">WhatsApp</label><input type="tel" id="phone" name="phone" /></div>
-          <div class="form-group"><label for="message">Mensagem</label><textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea></div>
-          <button type="submit" class="cta-button">Enviar Pedido</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <button id="admin-login-btn" title="Login Admin">⚙️</button>
-
-  <div id="admin-login-modal" class="modal">
-    <div class="modal-content">
-      <h3>Login Admin</h3>
-      <form id="login-form">
-        <label for="admin-user">Usuário</label>
-        <input type="text" id="admin-user" required />
-        <label for="admin-pass">Senha</label>
-        <input type="password" id="admin-pass" required />
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="catalog-login-modal" class="modal">
-    <div class="modal-content">
-      <h3>Login Cliente para Catálogo</h3>
-      <form id="catalog-login-form">
-        <label for="client-user">Usuário</label>
-        <input type="text" id="client-user" required />
-        <label for="client-pass">Senha</label>
-        <input type="password" id="client-pass" required />
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
-  </div>
-
-  <section id="admin-panel" style="display:none; max-width:700px; margin:2rem auto; background:var(--glass-purple); padding:2rem; border-radius:18px; border:1.5px solid var(--primary-pink);">
-    <h3>Upload de Fotos para o Catálogo</h3>
-    <form id="upload-form">
-      <label for="photo-name">Nome da Foto</label>
-      <input type="text" id="photo-name" required />
-      <label for="photo-desc">Descrição</label>
-      <textarea id="photo-desc" rows="3" required></textarea>
-      <label for="photo-image">Selecione a imagem</label>
-      <input type="file" id="photo-image" accept="image/*" required />
-      <button type="submit">Adicionar Foto</button>
-    </form>
-    <div id="preview-container">
-      <h4>Fotos Recentemente Adicionadas</h4>
-      <div id="preview-list" style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;"></div>
-    </div>
-  </section>
-
-  <div id="photo-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:4000;">
-    <span class="close-btn" title="Fechar" style="position:fixed; top:20px; right:30px; font-size:2.5rem; color:white; cursor:pointer; user-select:none;">&times;</span>
-    <img src="" alt="Foto em alta resolução" style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 0 40px rgba(255,255,255,0.7);" />
-  </div>
-
-<script>
-  // Elementos
-  const adminLoginBtn = document.getElementById('admin-login-btn');
-  const adminLoginModal = document.getElementById('admin-login-modal');
-  const loginForm = document.getElementById('login-form');
-  const adminPanel = document.getElementById('admin-panel');
-  const previewList = document.getElementById('preview-list');
-
-  const clientLoginBtn = document.getElementById('client-login-btn');
-  const catalogLoginModal = document.getElementById('catalog-login-modal');
-  const catalogLoginForm = document.getElementById('catalog-login-form');
-  const adminPhotosGallery = document.getElementById('admin-photos-gallery');
-
-  const photoModal = document.getElementById('photo-modal');
-  const photoModalImg = photoModal.querySelector('img');
-  const photoModalClose = photoModal.querySelector('.close-btn');
-
-  // Estado login admin
-  function setAdminLoggedIn(loggedIn) {
-    if (loggedIn) {
-      adminPanel.style.display = 'block';
-      adminLoginBtn.style.display = 'none';
-      adminLoginModal.style.display = 'none';
-      if (!document.getElementById('admin-logout-btn')) createAdminLogoutButton();
-      refreshAdminGalleryButtons();
-    } else {
-      adminPanel.style.display = 'none';
-      adminLoginBtn.style.display = 'block';
-      adminLoginModal.style.display = 'none';
-      localStorage.removeItem('adminLoggedIn');
-      const btn = document.getElementById('admin-logout-btn');
-      if (btn) btn.remove();
-      refreshAdminGalleryButtons();
-    }
-  }
-
-  // Estado login cliente
-  function setClientLoggedIn(loggedIn) {
-    if (loggedIn) {
-      clientLoginBtn.style.display = 'none';
-      catalogLoginModal.style.display = 'none';
-      adminPhotosGallery.classList.add('active');
-      if (!document.getElementById('client-logout-btn')) createClientLogoutButton();
-    } else {
-      clientLoginBtn.style.display = 'inline-block';
-      catalogLoginModal.style.display = 'none';
-      adminPhotosGallery.classList.remove('active');
-      const btn = document.getElementById('client-logout-btn');
-      if (btn) btn.remove();
-    }
-  }
-
-  // Cria botões logout
-  function createAdminLogoutButton() {
-    const btn = document.createElement('button');
-    btn.id = 'admin-logout-btn';
-    btn.textContent = 'Logout Admin';
-    btn.style.marginTop = '1rem';
-    btn.style.padding = '0.5rem 1rem';
-    btn.style.background = 'var(--secondary-purple)';
-    btn.style.color = 'white';
-    btn.style.border = 'none';
-    btn.style.borderRadius = '8px';
-    btn.style.cursor = 'pointer';
-    btn.onclick = () => {
-      if (confirm('Deseja realmente sair?')) {
-        setAdminLoggedIn(false);
-      }
-    };
-    adminPanel.appendChild(btn);
-  }
-
-  function createClientLogoutButton() {
-    const btn = document.createElement('button');
-    btn.id = 'client-logout-btn';
-    btn.textContent = 'Logout Cliente';
-    btn.style.marginBottom = '1rem';
-    btn.style.padding = '0.5rem 1rem';
-    btn.style.background = 'var(--secondary-purple)';
-    btn.style.color = 'white';
-    btn.style.border = 'none';
-    btn.style.borderRadius = '8px';
-    btn.style.cursor = 'pointer';
-    btn.onclick = () => {
-      if (confirm('Deseja realmente sair?')) {
-        setClientLoggedIn(false);
-      }
-    };
-    clientLoginBtn.insertAdjacentElement('afterend', btn);
-  }
-
-  // Eventos login admin
-  adminLoginBtn.addEventListener('click', () => adminLoginModal.style.display = 'block');
-  adminLoginModal.addEventListener('click', e => { if(e.target === adminLoginModal) adminLoginModal.style.display = 'none'; });
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const user = document.getElementById('admin-user').value.trim();
-    const pass = document.getElementById('admin-pass').value.trim();
-    if(user === 'admin' && pass === '@lau2025#') {
-      alert('Login Admin bem-sucedido!');
-      localStorage.setItem('adminLoggedIn', 'true');
-      setAdminLoggedIn(true);
-    } else {
-      alert('Usuário ou senha incorretos.');
-    }
-  });
-
-  // Eventos login cliente
-  clientLoginBtn.addEventListener('click', () => catalogLoginModal.style.display = 'flex');
-  catalogLoginModal.addEventListener('click', e => { if(e.target === catalogLoginModal) catalogLoginModal.style.display = 'none'; });
-  catalogLoginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const user = document.getElementById('client-user').value.trim();
-    const pass = document.getElementById('client-pass').value.trim();
-    if(user === 'cliente' && pass === '1234') {
-      alert('Login Cliente bem-sucedido! Catálogo liberado.');
-      localStorage.setItem('clientLoggedIn', 'true');
-      setClientLoggedIn(true);
-    } else {
-      alert('Usuário ou senha incorretos.');
-    }
-  });
-
-  // Upload fotos admin
-  const uploadForm = document.getElementById('upload-form');
-  uploadForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('photo-name').value.trim();
-    const desc = document.getElementById('photo-desc').value.trim();
-    const fileInput = document.getElementById('photo-image');
-    const file = fileInput.files[0];
-    if(!file) {
-      alert('Selecione uma imagem.');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const photo = {
-        id: Date.now(),
-        name,
-        desc,
-        imageSrc: event.target.result
-      };
-      savePhoto(photo);
-      addPhotoToGallery(photo);
-      addPreview(photo);
-      uploadForm.reset();
-      alert('Foto adicionada com sucesso!');
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // Salva foto no localStorage
-  function savePhoto(photo) {
-    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-    photos.push(photo);
-    localStorage.setItem('adminPhotos', JSON.stringify(photos));
-  }
-
-  // Carrega fotos do localStorage
-  function loadStoredPhotos() {
-    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-    photos.forEach(photo => {
-      addPhotoToGallery(photo);
-      addPreview(photo);
-    });
-    // Atualiza visibilidade catálogo conforme login cliente
-    if(localStorage.getItem('clientLoggedIn') === 'true') {
-      setClientLoggedIn(true);
-    }
-    // Atualiza painel admin conforme login admin
-    if(localStorage.getItem('adminLoggedIn') === 'true') {
-      setAdminLoggedIn(true);
-    }
-  }
-
-  // Adiciona foto na galeria pública (visível só para cliente logado)
-  function addPhotoToGallery(photo) {
-    if(adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
-    const card = document.createElement('div');
-    card.classList.add('photo-card');
-    card.dataset.id = photo.id;
-
-    card.style.margin = '0 10px 20px';
-    card.style.textAlign = 'center';
-    card.style.maxWidth = '220px';
-    card.style.position = 'relative';
-
-    const img = document.createElement('img');
-    img.src = photo.imageSrc;
-    img.alt = photo.name;
-    img.title = photo.name + (photo.desc ? ": " + photo.desc : "");
-    img.style.width = '100%';
-    img.style.height = '200px';
-    img.style.objectFit = 'cover';
-    img.style.borderRadius = '14px';
-    img.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
-    img.style.transition = 'transform 0.3s ease';
-    img.style.cursor = 'pointer';
-
-    img.addEventListener('click', () => openPhotoModal(photo.imageSrc, photo.name));
-    img.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; });
-    img.addEventListener('mouseleave', () => { img.style.transform = 'scale(1)'; });
-
-    card.appendChild(img);
-
-    if(localStorage.getItem('adminLoggedIn') === 'true') {
-      const btnDelete = document.createElement('button');
-      btnDelete.textContent = 'Excluir';
-      btnDelete.title = 'Excluir Foto';
-      btnDelete.style.marginTop = '6px';
-      btnDelete.style.padding = '0.3rem 0.6rem';
-      btnDelete.style.background = 'rgba(255,0,0,0.8)';
-      btnDelete.style.color = 'white';
-      btnDelete.style.border = 'none';
-      btnDelete.style.borderRadius = '6px';
-      btnDelete.style.cursor = 'pointer';
-      btnDelete.style.fontSize = '0.9rem';
-      btnDelete.style.opacity = '0.8';
-      btnDelete.style.transition = 'opacity 0.3s ease';
-      btnDelete.onmouseenter = () => btnDelete.style.opacity = '1';
-      btnDelete.onmouseleave = () => btnDelete.style.opacity = '0.8';
-      btnDelete.onclick = () => deletePhoto(photo.id);
-      card.appendChild(btnDelete);
-    }
-
-    adminPhotosGallery.appendChild(card);
-  }
-
-  // Adiciona preview no painel admin
-  function addPreview(photo) {
-    if(previewList.querySelector(`img[data-id="${photo.id}"]`)) return;
-    const previewImg = document.createElement('img');
-    previewImg.src = photo.imageSrc;
-    previewImg.alt = photo.name;
-    previewImg.dataset.id = photo.id;
-    previewList.appendChild(previewImg);
-  }
-
-  // Deleta foto do catálogo e preview
-  function deletePhoto(id) {
-    if(!confirm('Deseja realmente excluir esta foto?')) return;
-    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-    photos = photos.filter(p => p.id !== id);
-    localStorage.setItem('adminPhotos', JSON.stringify(photos));
-    // Remove da galeria pública
-    const card = adminPhotosGallery.querySelector(`.photo-card[data-id="${id}"]`);
-    if(card) card.remove();
-    // Remove do preview admin
-    const previewImg = previewList.querySelector(`img[data-id="${id}"]`);
-    if(previewImg) previewImg.remove();
-  }
-
-  // Modal foto alta resolução
-  function openPhotoModal(src, alt) {
-    photoModalImg.src = src;
-    photoModalImg.alt = alt;
-    photoModal.classList.add('active');
-  }
-  photoModalClose.addEventListener('click', () => {
-    photoModal.classList.remove('active');
-    photoModalImg.src = '';
-    photoModalImg.alt = '';
-  });
-  photoModal.addEventListener('click', e => {
-    if(e.target === photoModal) {
-      photoModal.classList.remove('active');
-      photoModalImg.src = '';
-      photoModalImg.alt = '';
-    }
-  });
-
-  // Produtos: exclusão pelo admin
-  const productsSection = document.getElementById('products-section');
-  productsSection.addEventListener('click', e => {
-    if(e.target.classList.contains('delete-btn')) {
-      if(confirm('Deseja realmente excluir este produto?')) {
-        const card = e.target.closest('.product-card');
-        if(card) {
-          card.remove();
-          // Aqui poderia-se implementar persistência se produtos fossem dinâmicos
+        // Estado login admin
+        function setAdminLoggedIn(loggedIn) {
+            if (loggedIn) {
+                adminPanel.style.display = 'block';
+                adminLoginBtn.style.display = 'none';
+                adminLoginModal.style.display = 'none';
+                if (!document.getElementById('admin-logout-btn')) createAdminLogoutButton();
+                refreshAdminGalleryButtons();
+            } else {
+                adminPanel.style.display = 'none';
+                adminLoginBtn.style.display = 'block';
+                adminLoginModal.style.display = 'none';
+                localStorage.removeItem('adminLoggedIn');
+                const btn = document.getElementById('admin-logout-btn');
+                if (btn) btn.remove();
+                refreshAdminGalleryButtons();
+            }
         }
-      }
-    }
-  });
 
-  // Controle do link catálogo: exige login cliente
-  const catalogLink = document.getElementById('catalog-link');
-  catalogLink.addEventListener('click', e => {
-    if(localStorage.getItem('clientLoggedIn') !== 'true') {
-      e.preventDefault();
-      catalogLoginModal.style.display = 'flex';
-    } else {
-      // Permite acesso direto
-      adminPhotosGallery.scrollIntoView({behavior: 'smooth'});
-    }
-  });
+        // Cria botão de logout admin
+        function createAdminLogoutButton() {
+            const btn = document.createElement('button');
+            btn.id = 'admin-logout-btn';
+            btn.textContent = 'Logout Admin';
+            btn.style.marginTop = '1rem';
+            btn.style.padding = '0.5rem 1rem';
+            btn.style.background = 'var(--secondary-purple)';
+            btn.style.color = 'white';
+            btn.style.border = 'none';
+            btn.style.borderRadius = '8px';
+            btn.style.cursor = 'pointer';
+            btn.onclick = () => {
+                if (confirm('Deseja realmente sair?')) {
+                    setAdminLoggedIn(false);
+                }
+            };
+            adminLoginBtn.insertAdjacentElement('afterend', btn);
+        }
 
-  // Inicialização
-  window.addEventListener('DOMContentLoaded', () => {
-    loadStoredPhotos();
-  });
-</script>
+        // Atualiza botões de exclusão
+        function refreshAdminGalleryButtons() {
+            document.querySelectorAll('.delete-btn').forEach(btn => btn.remove());
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                document.querySelectorAll('.photo-card').forEach(card => {
+                    const btnDelete = document.createElement('button');
+                    btnDelete.textContent = 'Excluir';
+                    btnDelete.title = 'Excluir Foto';
+                    btnDelete.className = 'delete-btn';
+                    btnDelete.onclick = () => deletePhoto(card.dataset.id);
+                    card.appendChild(btnDelete);
+                });
+            }
+        }
+
+        // Eventos login admin
+        adminLoginBtn.addEventListener('click', () => {
+            adminLoginModal.style.display = 'block';
+        });
+
+        adminLoginModal.addEventListener('click', e => {
+            if (e.target === adminLoginModal) {
+                adminLoginModal.style.display = 'none';
+            }
+        });
+
+        loginForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const user = document.getElementById('admin-user').value.trim();
+            const pass = document.getElementById('admin-pass').value.trim();
+            
+            if (user === 'admin' && pass === '@lau2025#') {
+                alert('Login Admin bem-sucedido!');
+                localStorage.setItem('adminLoggedIn', 'true');
+                setAdminLoggedIn(true);
+            } else {
+                alert('Usuário ou senha incorretos.');
+            }
+        });
+
+        // Upload de fotos
+        const uploadForm = document.getElementById('upload-form');
+        uploadForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const name = document.getElementById('photo-name').value.trim();
+            const desc = document.getElementById('photo-desc').value.trim();
+            const fileInput = document.getElementById('photo-image');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Selecione uma imagem.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const photo = {
+                    id: Date.now(),
+                    name,
+                    desc,
+                    imageSrc: event.target.result
+                };
+                savePhoto(photo);
+                addPhotoToGallery(photo);
+                addPreview(photo);
+                uploadForm.reset();
+                alert('Foto adicionada com sucesso!');
+            };
+            reader.readAsDataURL(file);
+
+            // Salva foto no localStorage
+            function savePhoto(photo) {
+                let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+                photos.push(photo);
+                localStorage.setItem('adminPhotos', JSON.stringify(photos));
+            }
+        });
+
+        // Carrega fotos do localStorage
+        function loadStoredPhotos() {
+            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+            photos.forEach(photo => {
+                addPhotoToGallery(photo);
+                addPreview(photo);
+            });
+        }
+
+        // Adiciona foto na galeria
+        function addPhotoToGallery(photo) {
+            if (adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
+
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.dataset.id = photo.id;
+            card.style.margin = '0 10px 20px';
+            card.style.textAlign = 'center';
+            card.style.maxWidth = '220px';
+            card.style.position = 'relative';
+
+            const img = document.createElement('img');
+            img.src = photo.imageSrc;
+            img.alt = photo.name;
+            img.title = photo.name + (photo.desc ? ": " + photo.desc : "");
+            img.style.width = '100%';
+            img.style.height = '200px';
+            img.style.objectFit = 'cover';
+            img.style.borderRadius = '14px';
+            img.style.boxShadow = '0 6px 20px rgba(255,255,255,0.15)';
+            img.style.cursor = 'pointer';
+            img.style.transition = 'transform 0.3s ease';
+            img.addEventListener('click', () => openPhotoModal(photo.imageSrc, photo.name));
+            img.addEventListener('mouseenter', () => img.style.transform = 'scale(1.05)');
+            img.addEventListener('mouseleave', () => img.style.transform = 'scale(1)');
+            card.appendChild(img);
+
+            // Botão de exclusão
+            const btnDelete = document.createElement('button');
+            btnDelete.textContent = 'Excluir';
+            btnDelete.title = 'Excluir Foto';
+            btnDelete.className = 'delete-btn';
+            btnDelete.style.position = 'absolute';
+            btnDelete.style.top = '6px';
+            btnDelete.style.right = '6px';
+            btnDelete.style.background = 'rgba(255,0,0,0.8)';
+            btnDelete.style.color = 'white';
+            btnDelete.style.fontWeight = '700';
+            btnDelete.style.border = 'none';
+            btnDelete.style.borderRadius = '6px';
+            btnDelete.style.padding = '0.3rem 0.6rem';
+            btnDelete.style.fontSize = '0.9rem';
+            btnDelete.style.opacity = '0.8';
+            btnDelete.style.transition = 'opacity 0.3s ease';
+            btnDelete.addEventListener('click', () => deletePhoto(photo.id));
+            btnDelete.addEventListener('mouseenter', () => btnDelete.style.opacity = '1');
+            btnDelete.addEventListener('mouseleave', () => btnDelete.style.opacity = '0.8');
+            card.appendChild(btnDelete);
+
+            adminPhotosGallery.appendChild(card);
+        }
+
+        // Adiciona preview no painel admin
+        function addPreview(photo) {
+            if (previewList.querySelector(`img[data-id="${photo.id}"]`)) return;
+
+            const previewImg = document.createElement('img');
+            previewImg.src = photo.imageSrc;
+            previewImg.alt = photo.name;
+            previewImg.dataset.id = photo.id;
+            previewImg.style.width = '100px';
+            previewImg.style.height = '100px';
+            previewImg.style.objectFit = 'cover';
+            previewImg.style.borderRadius = '8px';
+            previewImg.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
+            previewList.appendChild(previewImg);
+        }
+
+        // Deleta foto
+        function deletePhoto(id) {
+            if (!confirm('Deseja realmente excluir esta foto?')) return;
+
+            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+            photos = photos.filter(p => p.id !== id);
+            localStorage.setItem('adminPhotos', JSON.stringify(photos));
+
+            // Remove da galeria
+            const card = adminPhotosGallery.querySelector(`.photo-card[data-id="${id}"]`);
+            if (card) card.remove();
+
+            // Remove do preview
+            const previewImg = previewList.querySelector(`img[data-id="${id}"]`);
+            if (previewImg) previewImg.remove();
+        }
+
+        // Modal foto alta resolução
+        function openPhotoModal(src, alt) {
+            photoModalImg.src = src;
+            photoModalImg.alt = alt;
+            photoModal.classList.add('active');
+        }
+
+        photoModalClose.addEventListener('click', () => {
+            photoModal.classList.remove('active');
+            photoModalImg.src = '';
+            photoModalImg.alt = '';
+        });
+
+        photoModal.addEventListener('click', e => {
+            if (e.target === photoModal) {
+                photoModal.classList.remove('active');
+                photoModalImg.src = '';
+                photoModalImg.alt = '';
+            }
+        });
+
+        // Carrega fotos ao iniciar
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStoredPhotos();
+        });
+
+        // Inicializa painel admin
+        loadStoredPhotos();
+    </script>
 </body>
 </html>
