@@ -1,617 +1,931 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Laudiane Lopes - Beleza & Perfumes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --primary-pink: #e75480;
-            --secondary-purple: #a259c6;
-            --accent-green: #6ee7b7;
-            --soft-lilac: #f3e8ff;
-            --white: #fff;
-            --dark-purple: #3a2244;
-            --shadow-pink: rgba(231, 84, 128, 0.15);
-            --shadow-purple: rgba(162, 89, 198, 0.15);
-            --glass-pink: rgba(231, 84, 128, 0.10);
-            --glass-purple: rgba(162, 89, 198, 0.10);
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
-            color: var(--dark-purple);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
-                radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
-            pointer-events: none;
-            z-index: -1;
-            animation: subtleFloat 8s ease-in-out infinite;
-        }
-        @keyframes subtleFloat {
-            0%,
-            100% {
-                transform: translateY(0) rotate(0);
-            }
-            50% {
-                transform: translateY(-10px) rotate(1deg);
-            }
-        }
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 0;
-            background: rgba(243, 232, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--secondary-purple);
-            z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-pink);
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            cursor: pointer;
-        }
-        .logo-icon {
-            font-size: 2.5rem;
-            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
-                rotateColorFlower 8s linear infinite;
-            will-change: transform, filter;
-            filter: drop-shadow(0 0 20px var(--primary-pink));
-            transition: filter 0.3s, transform 0.3s;
-        }
-        .logo-icon:hover {
-            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
-                rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 0 40px var(--primary-pink));
-            transform: scale(1.08) rotate(-3deg);
-        }
-        @keyframes floatFlower {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        @keyframes swingFlower {
-            0% {
-                transform: rotate(-6deg);
-            }
-            50% {
-                transform: rotate(6deg);
-            }
-            100% {
-                transform: rotate(-6deg);
-            }
-        }
-        @keyframes rotateColorFlower {
-            0% {
-                filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink));
-            }
-            100% {
-                filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink));
-            }
-        }
-        @keyframes pulseFlower {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.12);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--secondary-purple);
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            padding: 0.7rem 1.2rem;
-            border-radius: 8px;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nav-links a:hover {
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
-            color: var(--white);
-            transform: translateY(-2px) scale(1.07);
-        }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
-            overflow: hidden;
-        }
-        .hero-content {
-            max-width: 900px;
-            text-align: center;
-            z-index: 2;
-            padding: 7rem 2rem 2rem;
-        }
-        .hero h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.7rem, 7vw, 4.5rem);
-            font-weight: 700;
-            color: var(--primary-pink);
-            margin-bottom: 1.2rem;
-            background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--secondary-purple);
-            margin-bottom: 2rem;
-            font-style: italic;
-            opacity: 0.95;
-        }
-        .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--dark-purple);
-        }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
-            color: var(--white);
-            padding: 1.1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 40px var(--shadow-pink);
-            border: 2px solid var(--primary-pink);
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-button:hover {
-            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
-            color: var(--white);
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 20px 60px var(--shadow-purple);
-        }
-        section {
-            padding: 7rem 2rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            color: var(--secondary-purple);
-            text-align: center;
-            margin-bottom: 3.5rem;
-            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            width: 90px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-        /* Seção de produtos com carrossel */
-        .products-carousel {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 1rem;
-        }
-        .product-card {
-            flex: 0 0 280px;
-            background: var(--glass-pink);
-            border-radius: 16px;
-            padding: 1.5rem;
-            scroll-snap-align: start;
-            box-shadow: 0 8px 30px var(--shadow-pink);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .product-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 45px var(--shadow-purple);
-        }
-        .product-card img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            object-fit: cover;
-            aspect-ratio: 1 / 1;
-        }
-        .product-card h3 {
-            color: var(--primary-pink);
-            margin-bottom: 0.5rem;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .product-card p {
-            font-size: 0.9rem;
-            color: var(--dark-purple);
-            margin-bottom: 0.8rem;
-        }
-        .badge {
-            display: inline-block;
-            background: var(--accent-green);
-            color: var(--white);
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        .product-card .cta-button {
-            margin-top: auto;
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 30px;
-            border: none;
-            background: var(--primary-pink);
-            color: var(--white);
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .product-card .cta-button:hover {
-            background: var(--secondary-purple);
-        }
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-top: 2rem;
-        }
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--dark-purple);
-        }
-        .about-text p {
-            margin-bottom: 1.2rem;
-            opacity: 0.92;
-        }
-        .about-image {
-            text-align: center;
-            position: relative;
-        }
-        .flower-icon {
-            font-size: 8rem;
-            color: var(--primary-pink);
-            text-shadow: 0 0 32px var(--secondary-purple);
-            filter: drop-shadow(0 0 20px var(--primary-pink));
-            display: inline-block;
-            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
-            will-change: transform, filter;
-            transition: filter 0.3s, transform 0.3s;
-            cursor: pointer;
-        }
-        .flower-icon:hover {
-            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
-            filter: drop-shadow(0 0 60px var(--secondary-purple));
-            transform: scale(1.08) rotate(-3deg);
-        }
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-        .contact-info {
-            background: var(--glass-purple);
-            backdrop-filter: blur(16px);
-            padding: 2.5rem;
-            border-radius: 18px;
-            border: 1.5px solid var(--primary-pink);
-            transition: all 0.4s;
-        }
-        .contact-info h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary-pink);
-            margin-bottom: 1.3rem;
-            font-size: 1.2rem;
-        }
-        .contact-item {
-            margin-bottom: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.8rem;
-            background: var(--soft-lilac);
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-        .contact-item strong {
-            font-size: 1.1rem;
-            color: var(--secondary-purple);
-        }
-        .contact-item a {
-            color: var(--primary-pink);
-            text-decoration: none;
-        }
-        .contact-form {
-            background: var(--glass-pink);
-            backdrop-filter: blur(16px);
-            padding: 2.5rem;
-            border-radius: 18px;
-            border: 1.5px solid var(--secondary-purple);
-        }
-        .contact-form h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--secondary-purple);
-            margin-bottom: 1.3rem;
-            font-size: 1.2rem;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.6rem;
-            color: var(--primary-pink);
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.9rem;
-            background: var(--soft-lilac);
-            border: 1.5px solid var(--secondary-purple);
-            border-radius: 8px;
-            color: var(--dark-purple);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-pink);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        footer {
-            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
-            color: var(--white);
-            padding: 2.5rem 2rem 1.2rem;
-            text-align: center;
-            border-top: 1px solid var(--primary-pink);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-        }
-        .footer-content p {
-            margin-bottom: 0.6rem;
-            opacity: 0.9;
-        }
-        @media (max-width: 900px) {
-            .about-content,
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .hero-content {
-                padding-top: 5rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .hero-content {
-                padding-top: 4rem;
-            }
-            section {
-                padding: 4rem 1rem 1rem;
-            }
-            .flower-icon {
-                font-size: 5rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laudiane Lopes - Beleza & Perfumes</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary-pink: #e75480;
+    --secondary-purple: #a259c6;
+    --accent-green: #6ee7b7;
+    --soft-lilac: #f3e8ff;
+    --white: #fff;
+    --dark-purple: #3a2244;
+    --shadow-pink: rgba(231, 84, 128, 0.15);
+    --shadow-purple: rgba(162, 89, 198, 0.15);
+    --glass-pink: rgba(231, 84, 128, 0.10);
+    --glass-purple: rgba(162, 89, 198, 0.10);
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
+    color: var(--dark-purple);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background:
+      radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
+      radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
+    pointer-events: none;
+    z-index: -1;
+    animation: subtleFloat 8s ease-in-out infinite;
+  }
+  @keyframes subtleFloat {
+    0%, 100% { transform: translateY(0) rotate(0);}
+    50% { transform: translateY(-10px) rotate(1deg);}
+  }
+  header {
+    position: fixed; top: 0; width: 100%;
+    padding: 1rem 0;
+    background: rgba(243, 232, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--secondary-purple);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  .logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-pink);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    cursor: pointer;
+  }
+  .logo-icon {
+    font-size: 2.5rem;
+    animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
+      rotateColorFlower 8s linear infinite;
+    will-change: transform, filter;
+    filter: drop-shadow(0 0 20px var(--primary-pink));
+    transition: filter 0.3s, transform 0.3s;
+  }
+  .logo-icon:hover {
+    animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
+      rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 40px var(--primary-pink));
+    transform: scale(1.08) rotate(-3deg);
+  }
+  @keyframes floatFlower {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes swingFlower {
+    0% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+    100% { transform: rotate(-6deg); }
+  }
+  @keyframes rotateColorFlower {
+    0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink)); }
+    100% { filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink)); }
+  }
+  @keyframes pulseFlower {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--secondary-purple);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-links a:hover {
+    background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+    color: var(--white);
+    transform: translateY(-2px) scale(1.07);
+  }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
+    overflow: hidden;
+  }
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    z-index: 2;
+    padding: 7rem 2rem 2rem;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.7rem, 7vw, 4.5rem);
+    font-weight: 700;
+    color: var(--primary-pink);
+    margin-bottom: 1.2rem;
+    background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--secondary-purple);
+    margin-bottom: 2rem;
+    font-style: italic;
+    opacity: 0.95;
+  }
+  .hero-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--dark-purple);
+  }
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+    color: var(--white);
+    padding: 1.1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px var(--shadow-pink);
+    border: 2px solid var(--primary-pink);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-button:hover {
+    background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+    color: var(--white);
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 20px 60px var(--shadow-purple);
+  }
+  section {
+    padding: 7rem 2rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--secondary-purple);
+    text-align: center;
+    margin-bottom: 3.5rem;
+    background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    width: 90px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+  /* Seção de produtos com centralização e float */
+  #products-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .product-card {
+    background: var(--glass-pink);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 30px var(--shadow-pink);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 280px;
+    position: relative;
+    animation: floatUpDown 4s ease-in-out infinite;
+  }
+  .product-card:nth-child(even) {
+    animation-delay: 2s;
+  }
+  .product-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 45px var(--shadow-purple);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+  .product-card h3 {
+    color: var(--primary-pink);
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: var(--dark-purple);
+    margin-bottom: 0.8rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent-green);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .product-card .cta-button {
+    margin-top: auto;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-pink);
+    color: var(--white);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .product-card .cta-button:hover {
+    background: var(--secondary-purple);
+  }
+  /* Galeria exclusiva para fotos do admin, visível a todos */
+  #admin-photos-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  #admin-photos-gallery img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  #admin-photos-gallery img:hover {
+    transform: scale(1.05);
+  }
+  /* About Section */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .about-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--dark-purple);
+  }
+  .about-text p {
+    margin-bottom: 1.2rem;
+    opacity: 0.92;
+  }
+  .about-image {
+    text-align: center;
+    position: relative;
+  }
+  .flower-icon {
+    font-size: 8rem;
+    color: var(--primary-pink);
+    text-shadow: 0 0 32px var(--secondary-purple);
+    filter: drop-shadow(0 0 20px var(--primary-pink));
+    display: inline-block;
+    animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+    will-change: transform, filter;
+    transition: filter 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .flower-icon:hover {
+    animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+    filter: drop-shadow(0 0 60px var(--secondary-purple));
+    transform: scale(1.08) rotate(-3deg);
+  }
+  /* Contact Section */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .contact-info {
+    background: var(--glass-purple);
+    backdrop-filter: blur(16px);
+    padding: 2.5rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--primary-pink);
+    transition: all 0.4s;
+  }
+  .contact-info h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-pink);
+    margin-bottom: 1.3rem;
+    font-size: 1.2rem;
+  }
+  .contact-item {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: var(--soft-lilac);
+    border-radius: 10px;
+    transition: all 0.3s;
+  }
+  .contact-item strong {
+    font-size: 1.1rem;
+    color: var(--secondary-purple);
+  }
+  .contact-item a {
+    color: var(--primary-pink);
+    text-decoration: none;
+  }
+  .contact-form {
+    background: var(--glass-pink);
+    backdrop-filter: blur(16px);
+    padding: 2.5rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--secondary-purple);
+  }
+  .contact-form h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--secondary-purple);
+    margin-bottom: 1.3rem;
+    font-size: 1.2rem;
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--primary-pink);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--soft-lilac);
+    border: 1.5px solid var(--secondary-purple);
+    border-radius: 8px;
+    color: var(--dark-purple);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-pink);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  footer {
+    background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
+    color: var(--white);
+    padding: 2.5rem 2rem 1.2rem;
+    text-align: center;
+    border-top: 1px solid var(--primary-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  .footer-content p {
+    margin-bottom: 0.6rem;
+    opacity: 0.9;
+  }
+  /* Login Modal */
+  #admin-login-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  #admin-login-modal.active {
+    display: flex;
+  }
+  #admin-login-modal .modal-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 320px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    color: var(--dark-purple);
+  }
+  #admin-login-modal h3 {
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-pink);
+  }
+  #admin-login-modal label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+  #admin-login-modal input[type="text"],
+  #admin-login-modal input[type="password"] {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: 1.5px solid var(--secondary-purple);
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  #admin-login-modal button {
+    background: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+  }
+  #admin-login-modal button:hover {
+    background: var(--secondary-purple);
+  }
+  /* Upload Section */
+  #admin-panel {
+    max-width: 700px;
+    margin: 2rem auto 5rem;
+    background: var(--glass-purple);
+    padding: 2rem;
+    border-radius: 18px;
+    border: 1.5px solid var(--primary-pink);
+    display: none;
+  }
+  #admin-panel.active {
+    display: block;
+  }
+  #admin-panel h3 {
+    color: var(--primary-pink);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
+  }
+  #upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #upload-form label {
+    font-weight: 600;
+    color: var(--secondary-purple);
+  }
+  #upload-form input[type="file"] {
+    cursor: pointer;
+  }
+  #upload-form button {
+    background: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+  #upload-form button:hover {
+    background: var(--secondary-purple);
+  }
+  #preview-container {
+    margin-top: 2rem;
+  }
+  #preview-container h4 {
+    color: var(--primary-pink);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #preview-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  #preview-list img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--primary-pink);
+  }
+  /* Botão para abrir login admin */
+  #admin-login-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px var(--shadow-pink);
+    z-index: 1500;
+    transition: background 0.3s ease;
+  }
+  #admin-login-btn:hover {
+    background: var(--secondary-purple);
+  }
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <span class="logo-icon" title="Laudiane Lopes">🌸</span>
-                Laudiane Lopes
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#produtos">Produtos</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <div class="logo">
+        <span class="logo-icon" title="Laudiane Lopes">🌸</span>
+        Laudiane Lopes
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Início</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Beleza, Perfume & Bem-Estar</h1>
-            <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora</p>
-            <p class="hero-description">
-                Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
-                Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
-            </p>
-            <a href="#contato" class="cta-button">Peça seu Catálogo</a>
-        </div>
-    </section>
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Beleza, Perfume & Bem-Estar</h1>
+      <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora</p>
+      <p class="hero-description">
+        Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
+        Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
+      </p>
+      <a href="#contato" class="cta-button">Peça seu Catálogo</a>
+    </div>
+  </section>
 
-    <section id="produtos">
-        <h2 class="section-title">Produtos em Destaque</h2>
-        <div class="products-carousel">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
-                <h3>Perfume Natura Essencial</h3>
-                <p>Fragrância sofisticada com notas amadeiradas e florais. Produto vegano e cruelty-free.</p>
-                <span class="badge">Vegano</span>
-                <a href="#contato" class="cta-button">Quero Comprar</a>
-            </div>
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Maquiagem O Boticário" loading="lazy" />
-                <h3>Maquiagem O Boticário</h3>
-                <p>Alta cobertura e longa duração com ingredientes hidratantes.</p>
-                <span class="badge">Hipoalergênico</span>
-                <a href="#contato" class="cta-button">Quero Comprar</a>
-            </div>
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Kit Natura Ekos" loading="lazy" />
-                <h3>Kit Natura Ekos</h3>
-                <p>Produtos naturais para cuidados corporais com ingredientes da biodiversidade brasileira.</p>
-                <span class="badge">Natural</span>
-                <a href="#contato" class="cta-button">Quero Comprar</a>
-            </div>
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=400&q=80" alt="Perfume Eudora" loading="lazy" />
-                <h3>Perfume Eudora</h3>
-                <p>Fragrância marcante e envolvente, ideal para ocasiões especiais.</p>
-                <span class="badge">Exclusivo</span>
-                <a href="#contato" class="cta-button">Quero Comprar</a>
-            </div>
-        </div>
-    </section>
+  <section id="produtos">
+    <h2 class="section-title">Produtos em Destaque</h2>
+    <div id="products-section">
+      <!-- Produtos fixos ou estáticos aqui -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
+        <h3>Perfume Natura Essencial</h3>
+        <p>Fragrância sofisticada com notas amadeiradas e florais. Produto vegano e cruelty-free.</p>
+        <span class="badge">Vegano</span>
+        <a href="#contato" class="cta-button">Quero Comprar</a>
+      </div>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Maquiagem O Boticário" loading="lazy" />
+        <h3>Maquiagem O Boticário</h3>
+        <p>Alta cobertura e longa duração com ingredientes hidratantes.</p>
+        <span class="badge">Hipoalergênico</span>
+        <a href="#contato" class="cta-button">Quero Comprar</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="sobre">
-        <h2 class="section-title">Sobre Laudiane Lopes</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>
-                    <strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.
-                </p>
-                <p>
-                    Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!
-                </p>
-                <p>
-                    <b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b>
-                </p>
-            </div>
-            <div class="about-image">
-                <span class="flower-icon" title="Flor da Beleza">🌸</span>
-            </div>
-        </div>
-    </section>
+  <section id="catalogo">
+    <h2 class="section-title">Catálogo de Fotos do Admin</h2>
+    <div id="admin-photos-gallery" aria-live="polite" aria-label="Catálogo de fotos adicionadas pelo administrador">
+      <!-- Fotos adicionadas pelo admin aparecerão aqui para todos visitantes -->
+    </div>
+  </section>
 
-    <section id="contato">
-        <h2 class="section-title">Fale com Laudiane</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h3>Atendimento & Pedidos</h3>
-                <div class="contact-item">
-                    <strong>📱</strong>
-                    <span><a href="https://wa.me/5599999999999" target="_blank">WhatsApp: (99) 99999-9999</a></span>
-                </div>
-                <div class="contact-item">
-                    <strong>📧</strong>
-                    <span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span>
-                </div>
-                <div class="contact-item">
-                    <strong>📍</strong>
-                    <span>Palmas, Tocantins</span>
-                </div>
-                <div class="contact-item">
-                    <strong>⏰</strong>
-                    <span>Seg a Sáb: 8h às 20h</span>
-                </div>
-            </div>
-            <div class="contact-form">
-                <h3>Peça seu Catálogo ou Faça um Pedido</h3>
-                <form>
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" name="email" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">WhatsApp</label>
-                        <input type="tel" id="phone" name="phone" />
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea>
-                    </div>
-                    <button type="submit" class="cta-button">Enviar Pedido</button>
-                </form>
-            </div>
-        </div>
-    </section>
+  <section id="sobre">
+    <h2 class="section-title">Sobre Laudiane Lopes</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          <strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.
+        </p>
+        <p>
+          Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!
+        </p>
+        <p>
+          <b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b>
+        </p>
+      </div>
+      <div class="about-image">
+        <span class="flower-icon" title="Flor da Beleza">🌸</span>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
-            <p>Beleza, Perfume & Bem-Estar | Consultoria e Revenda Oficial</p>
+  <section id="contato">
+    <h2 class="section-title">Fale com Laudiane</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Atendimento & Pedidos</h3>
+        <div class="contact-item">
+          <strong>📱</strong>
+          <span><a href="https://wa.me/5562982326163" target="_blank">WhatsApp: (62) 9 8232-6163</a></span>
         </div>
-    </footer>
+        <div class="contact-item">
+          <strong>📧</strong>
+          <span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span>
+        </div>
+        <div class="contact-item">
+          <strong>📍</strong>
+          <span>Palmas, Tocantins</span>
+        </div>
+        <div class="contact-item">
+          <strong>⏰</strong>
+          <span>Seg a Sáb: 8h às 20h</span>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Peça seu Catálogo ou Faça um Pedido</h3>
+        <form>
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">WhatsApp</label>
+            <input type="tel" id="phone" name="phone" />
+          </div>
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea>
+          </div>
+          <button type="submit" class="cta-button">Enviar Pedido</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botão para abrir login admin -->
+  <button id="admin-login-btn" title="Login Admin">⚙️</button>
+
+  <!-- Modal Login Admin -->
+  <div id="admin-login-modal">
+    <div class="modal-content">
+      <h3>Login Admin</h3>
+      <form id="login-form">
+        <label for="admin-user">Usuário</label>
+        <input type="text" id="admin-user" required />
+        <label for="admin-pass">Senha</label>
+        <input type="password" id="admin-pass" required />
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Painel Admin para Upload -->
+  <section id="admin-panel">
+    <h3>Upload de Fotos para o Catálogo</h3>
+    <form id="upload-form">
+      <label for="photo-name">Nome da Foto</label>
+      <input type="text" id="photo-name" required />
+      <label for="photo-desc">Descrição</label>
+      <textarea id="photo-desc" rows="3" required></textarea>
+      <label for="photo-image">Selecione a imagem</label>
+      <input type="file" id="photo-image" accept="image/*" required />
+      <button type="submit">Adicionar Foto</button>
+    </form>
+    <div id="preview-container">
+      <h4>Fotos Recentemente Adicionadas</h4>
+      <div id="preview-list"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
+      <p>Beleza, Perfume & Bem-Estar | Consultoria e Revenda Oficial</p>
+    </div>
+  </footer>
+
+<script>
+  const adminLoginBtn = document.getElementById('admin-login-btn');
+  const adminLoginModal = document.getElementById('admin-login-modal');
+  const loginForm = document.getElementById('login-form');
+  const adminPanel = document.getElementById('admin-panel');
+  const previewList = document.getElementById('preview-list');
+  const adminPhotosGallery = document.getElementById('admin-photos-gallery');
+
+  function setLoggedIn(loggedIn) {
+    if (loggedIn) {
+      adminPanel.classList.add('active');
+      adminLoginBtn.style.display = 'none';
+      adminLoginModal.classList.remove('active');
+      if (!document.getElementById('logout-btn')) createLogoutButton();
+    } else {
+      adminPanel.classList.remove('active');
+      adminLoginBtn.style.display = 'block';
+      adminLoginModal.classList.remove('active');
+      localStorage.removeItem('adminLoggedIn');
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) logoutBtn.remove();
+    }
+  }
+
+  function createLogoutButton() {
+    const btn = document.createElement('button');
+    btn.id = 'logout-btn';
+    btn.textContent = 'Logout Admin';
+    btn.style.marginTop = '1rem';
+    btn.style.padding = '0.5rem 1rem';
+    btn.style.background = 'var(--secondary-purple)';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '8px';
+    btn.style.cursor = 'pointer';
+    btn.onclick = () => {
+      if (confirm('Deseja realmente sair?')) {
+        setLoggedIn(false);
+        adminPhotosGallery.innerHTML = '';
+        previewList.innerHTML = '';
+        loadStoredPhotos();
+      }
+    };
+    adminPanel.appendChild(btn);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+    setLoggedIn(loggedIn);
+    loadStoredPhotos();
+  });
+
+  adminLoginBtn.addEventListener('click', () => {
+    adminLoginModal.classList.add('active');
+  });
+
+  adminLoginModal.addEventListener('click', e => {
+    if (e.target === adminLoginModal) {
+      adminLoginModal.classList.remove('active');
+    }
+  });
+
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const user = document.getElementById('admin-user').value.trim();
+    const pass = document.getElementById('admin-pass').value.trim();
+    if (user === 'admin' && pass === '@lau2025#') {
+      alert('Login bem-sucedido!');
+      localStorage.setItem('adminLoggedIn', 'true');
+      setLoggedIn(true);
+    } else {
+      alert('Usuário ou senha incorretos.');
+    }
+  });
+
+  const uploadForm = document.getElementById('upload-form');
+  uploadForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('photo-name').value.trim();
+    const desc = document.getElementById('photo-desc').value.trim();
+    const fileInput = document.getElementById('photo-image');
+    const file = fileInput.files[0];
+
+    if (!file) {
+      alert('Selecione uma imagem.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const photo = {
+        id: Date.now(),
+        name,
+        desc,
+        imageSrc: event.target.result
+      };
+      savePhoto(photo);
+      addPhotoToGallery(photo);
+      addPreview(photo);
+      uploadForm.reset();
+      alert('Foto adicionada com sucesso!');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function addPhotoToGallery(photo) {
+    if(adminPhotosGallery.querySelector(`.photo-card[data-id="${photo.id}"]`)) return;
+
+    const card = document.createElement('div');
+    card.classList.add('photo-card');
+    card.dataset.id = photo.id;
+    card.style.margin = '0 10px 20px';
+    card.style.textAlign = 'center';
+    card.style.maxWidth = '220px';
+
+    const img = document.createElement('img');
+    img.src = photo.imageSrc;
+    img.alt = photo.name;
+    img.style.width = '100%';
+    img.style.height = '200px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '14px';
+    img.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+    img.style.transition = 'transform 0.3s ease';
+    img.style.cursor = 'pointer';
+    img.title = photo.name + (photo.desc ? ": " + photo.desc : "");
+
+    img.addEventListener('mouseenter', () => {
+      img.style.transform = 'scale(1.05)';
+    });
+    img.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1)';
+    });
+
+    const caption = document.createElement('p');
+    caption.textContent = photo.name;
+    caption.style.color = 'var(--primary-pink)';
+    caption.style.fontWeight = '600';
+    caption.style.marginTop = '0.5rem';
+    caption.style.fontFamily = "'Montserrat', sans-serif";
+
+    card.appendChild(img);
+    card.appendChild(caption);
+
+    adminPhotosGallery.appendChild(card);
+  }
+
+  function addPreview(photo) {
+    if(previewList.querySelector(`img[data-id="${photo.id}"]`)) return;
+
+    const previewImg = document.createElement('img');
+    previewImg.src = photo.imageSrc;
+    previewImg.alt = photo.name;
+    previewImg.dataset.id = photo.id;
+    previewList.appendChild(previewImg);
+  }
+
+  function savePhoto(photo) {
+    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+    photos.push(photo);
+    localStorage.setItem('adminPhotos', JSON.stringify(photos));
+  }
+
+  function loadStoredPhotos() {
+    let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
+    photos.forEach(photo => {
+      addPhotoToGallery(photo);
+      addPreview(photo);
+    });
+  }
+</script>
 </body>
 </html>
