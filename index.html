@@ -242,6 +242,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    position: relative;
   }
   .product-card:hover {
     transform: translateY(-8px) scale(1.05);
@@ -290,6 +291,25 @@
   }
   .product-card .cta-button:hover {
     background: var(--secondary-purple);
+  }
+  /* Botão excluir produto */
+  .product-card button.delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 0, 0, 0.85);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  .product-card button.delete-btn:hover {
+    opacity: 1;
   }
   /* About Section */
   .about-content {
@@ -564,27 +584,6 @@
   #admin-login-btn:hover {
     background: var(--secondary-purple);
   }
-  @media (max-width: 900px) {
-    .about-content,
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .hero-content {
-      padding-top: 5rem;
-    }
-  }
-  @media (max-width: 600px) {
-    .hero-content {
-      padding-top: 4rem;
-    }
-    section {
-      padding: 4rem 1rem 1rem;
-    }
-    .flower-icon {
-      font-size: 5rem;
-    }
-  }
 </style>
 </head>
 <body>
@@ -618,6 +617,7 @@
   <section id="produtos">
     <h2 class="section-title">Produtos em Destaque</h2>
     <div class="products-carousel" id="products-carousel">
+      <!-- Produtos estáticos iniciais -->
       <div class="product-card">
         <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
         <h3>Perfume Natura Essencial</h3>
@@ -662,7 +662,7 @@
         <h3>Atendimento & Pedidos</h3>
         <div class="contact-item">
           <strong>📱</strong>
-          <span><a href="https://wa.me/5599999999999" target="_blank">WhatsApp: (99) 99999-9999</a></span>
+          <span><a href="https://wa.me/5562982326163" target="_blank">WhatsApp: (62) 9 8232-6163</a></span>
         </div>
         <div class="contact-item">
           <strong>📧</strong>
@@ -747,7 +747,7 @@
   </footer>
 
 <script>
-  // Persistência simples de login via localStorage
+  // Persistência do login admin via localStorage
   const adminLoginBtn = document.getElementById('admin-login-btn');
   const adminLoginModal = document.getElementById('admin-login-modal');
   const loginForm = document.getElementById('login-form');
@@ -755,21 +755,49 @@
   const productsCarousel = document.getElementById('products-carousel');
   const previewList = document.getElementById('preview-list');
 
-  // Função para atualizar interface após login
+  // Atualiza interface para login/logout
   function setLoggedIn(loggedIn) {
     if (loggedIn) {
       adminPanel.classList.add('active');
       adminLoginBtn.style.display = 'none';
       adminLoginModal.classList.remove('active');
+      if (!document.getElementById('logout-btn')) createLogoutButton();
     } else {
       adminPanel.classList.remove('active');
       adminLoginBtn.style.display = 'block';
       adminLoginModal.classList.remove('active');
       localStorage.removeItem('adminLoggedIn');
+      // Remove logout btn se existir
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) logoutBtn.remove();
     }
   }
 
-  // Verifica login no carregamento da página
+  // Cria botão logout no painel admin
+  function createLogoutButton() {
+    const btn = document.createElement('button');
+    btn.id = 'logout-btn';
+    btn.textContent = 'Logout Admin';
+    btn.style.marginTop = '1rem';
+    btn.style.padding = '0.5rem 1rem';
+    btn.style.background = 'var(--secondary-purple)';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '8px';
+    btn.style.cursor = 'pointer';
+    btn.onclick = () => {
+      if (confirm('Deseja realmente sair?')) {
+        setLoggedIn(false);
+        // Limpa produtos da UI para evitar duplicação
+        productsCarousel.innerHTML = '';
+        previewList.innerHTML = '';
+        loadStoredProducts();
+      }
+    };
+    adminPanel.appendChild(btn);
+  }
+
+  // Verifica login ao carregar página
   window.addEventListener('DOMContentLoaded', () => {
     const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
     setLoggedIn(loggedIn);
@@ -781,7 +809,7 @@
     adminLoginModal.classList.add('active');
   });
 
-  // Fechar modal clicando fora do conteúdo
+  // Fechar modal clicando fora
   adminLoginModal.addEventListener('click', e => {
     if (e.target === adminLoginModal) {
       adminLoginModal.classList.remove('active');
@@ -793,7 +821,7 @@
     e.preventDefault();
     const user = document.getElementById('admin-user').value.trim();
     const pass = document.getElementById('admin-pass').value.trim();
-    if (user === 'admin' && pass === '1234') {
+    if (user === 'admin' && pass === '@lau2025#') {
       alert('Login bem-sucedido!');
       localStorage.setItem('adminLoggedIn', 'true');
       setLoggedIn(true);
@@ -835,10 +863,12 @@
     reader.readAsDataURL(file);
   });
 
-  // Adiciona produto na seção visível para clientes
+  // Adiciona produto na seção visível para clientes e preview admin
   function addProductToUI(product) {
+    // Produto visível para clientes
     const card = document.createElement('div');
     card.classList.add('product-card');
+    card.dataset.id = product.id;
 
     const img = document.createElement('img');
     img.src = product.imageSrc;
@@ -861,30 +891,26 @@
       card.appendChild(spanBadge);
     }
 
-    const btn = document.createElement('a');
-    btn.classList.add('cta-button');
-    btn.href = '#contato';
-    btn.textContent = 'Quero Comprar';
-    card.appendChild(btn);
+    const btnBuy = document.createElement('a');
+    btnBuy.classList.add('cta-button');
+    btnBuy.href = '#contato';
+    btnBuy.textContent = 'Quero Comprar';
+    card.appendChild(btnBuy);
+
+    // Botão excluir visível só para admin
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      const btnDelete = document.createElement('button');
+      btnDelete.classList.add('delete-btn');
+      btnDelete.textContent = 'Excluir';
+      btnDelete.title = 'Excluir Produto';
+      btnDelete.onclick = () => deleteProduct(product.id);
+      card.appendChild(btnDelete);
+    }
 
     productsCarousel.appendChild(card);
-  }
 
-  // Salva produto no localStorage
-  function saveProduct(product) {
-    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
-    products.push(product);
-    localStorage.setItem('uploadedProducts', JSON.stringify(products));
+    // Preview admin
     addPreview(product);
-  }
-
-  // Carrega produtos do localStorage na UI e preview
-  function loadStoredProducts() {
-    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
-    products.forEach(product => {
-      addProductToUI(product);
-      addPreview(product);
-    });
   }
 
   // Adiciona preview no painel admin
@@ -892,37 +918,38 @@
     const previewImg = document.createElement('img');
     previewImg.src = product.imageSrc;
     previewImg.alt = product.name;
+    previewImg.dataset.id = product.id;
     previewList.appendChild(previewImg);
   }
 
-  // Opcional: logout para admin
-  function createLogoutButton() {
-    const btn = document.createElement('button');
-    btn.textContent = 'Logout Admin';
-    btn.style.marginTop = '1rem';
-    btn.style.padding = '0.5rem 1rem';
-    btn.style.background = 'var(--secondary-purple)';
-    btn.style.color = 'white';
-    btn.style.border = 'none';
-    btn.style.borderRadius = '8px';
-    btn.style.cursor = 'pointer';
-    btn.onclick = () => {
-      if (confirm('Deseja realmente sair?')) {
-        setLoggedIn(false);
-        // Limpa produtos da UI para evitar duplicação no reload
-        productsCarousel.innerHTML = '';
-        previewList.innerHTML = '';
-      }
-    };
-    adminPanel.appendChild(btn);
+  // Salva produto no localStorage
+  function saveProduct(product) {
+    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
+    products.push(product);
+    localStorage.setItem('uploadedProducts', JSON.stringify(products));
   }
 
-  // Cria botão logout ao ativar painel admin
-  window.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('adminLoggedIn') === 'true') {
-      createLogoutButton();
-    }
-  });
+  // Carrega produtos do localStorage na UI e preview
+  function loadStoredProducts() {
+    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
+    products.forEach(product => {
+      addProductToUI(product);
+    });
+  }
+
+  // Remove produto do localStorage e da UI
+  function deleteProduct(id) {
+    if (!confirm('Deseja realmente excluir este produto?')) return;
+    let products = JSON.parse(localStorage.getItem('uploadedProducts') || '[]');
+    products = products.filter(p => p.id !== id);
+    localStorage.setItem('uploadedProducts', JSON.stringify(products));
+    // Remove do carrossel
+    const card = productsCarousel.querySelector(`.product-card[data-id="${id}"]`);
+    if (card) card.remove();
+    // Remove do preview admin
+    const previewImg = previewList.querySelector(`img[data-id="${id}"]`);
+    if (previewImg) previewImg.remove();
+  }
 </script>
 </body>
 </html>
