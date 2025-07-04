@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Laudiane Lopes - Beleza & Perfumes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <style>
-        /* Variáveis de cores */
         :root {
             --primary-pink: #e75480;
             --secondary-purple: #a259c6;
@@ -16,397 +15,603 @@
             --dark-purple: #3a2244;
             --shadow-pink: rgba(231, 84, 128, 0.15);
             --shadow-purple: rgba(162, 89, 198, 0.15);
+            --glass-pink: rgba(231, 84, 128, 0.10);
+            --glass-purple: rgba(162, 89, 198, 0.10);
         }
-
-        /* Reset e configurações básicas */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
         }
-
         body {
-            background: var(--dark-purple);
-            color: var(--white);
-            padding: 2rem;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
+            color: var(--dark-purple);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-
-        .container {
-            max-width: 1200px;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
+                radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+            animation: subtleFloat 8s ease-in-out infinite;
+        }
+        @keyframes subtleFloat {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background: rgba(243, 232, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--secondary-purple);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        nav {
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        /* Efeitos de animação */
-        @keyframes slideIn {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .animated-text {
-            animation: slideIn 1s ease forwards;
-        }
-
-        /* Seção do Catálogo Público */
-        #catalogo {
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        #admin-photos-gallery {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
-
-        .photo-card {
-            margin: 0 10px 20px;
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+        }
+        .logo-icon {
+            font-size: 2.5rem;
+            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
+                rotateColorFlower 8s linear infinite;
+            will-change: transform, filter;
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            transition: filter 0.3s, transform 0.3s;
+        }
+        .logo-icon:hover {
+            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
+                rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 40px var(--primary-pink));
+            transform: scale(1.08) rotate(-3deg);
+        }
+        @keyframes floatFlower {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        @keyframes swingFlower {
+            0% {
+                transform: rotate(-6deg);
+            }
+            50% {
+                transform: rotate(6deg);
+            }
+            100% {
+                transform: rotate(-6deg);
+            }
+        }
+        @keyframes rotateColorFlower {
+            0% {
+                filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink));
+            }
+            100% {
+                filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink));
+            }
+        }
+        @keyframes pulseFlower {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.12);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--secondary-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-links a:hover {
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            color: var(--white);
+            transform: translateY(-2px) scale(1.07);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
+            overflow: hidden;
+        }
+        .hero-content {
+            max-width: 900px;
             text-align: center;
-            max-width: 220px;
+            z-index: 2;
+            padding: 7rem 2rem 2rem;
+        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.7rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-purple);
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.95;
+        }
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--dark-purple);
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            color: var(--white);
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px var(--shadow-pink);
+            border: 2px solid var(--primary-pink);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-button:hover {
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            color: var(--white);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 20px 60px var(--shadow-purple);
+        }
+        section {
+            padding: 7rem 2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
         }
-
-        .photo-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 14px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--secondary-purple);
+            text-align: center;
+            margin-bottom: 3.5rem;
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .photo-card img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Botões de exclusão (apenas para admin) */
-        .delete-btn {
+        .section-title::after {
+            content: '';
             position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
-            color: white;
-            font-weight: 700;
-            border-radius: 6px;
-            padding: 0.3rem 0.6rem;
+            bottom: -12px;
+            left: 50%;
+            width: 90px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        /* Seção de produtos com carrossel */
+        .products-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 1rem;
+        }
+        .product-card {
+            flex: 0 0 280px;
+            background: var(--glass-pink);
+            border-radius: 16px;
+            padding: 1.5rem;
+            scroll-snap-align: start;
+            box-shadow: 0 8px 30px var(--shadow-pink);
+            transition: transform 0.3s ease;
             cursor: pointer;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-            display: none; /* Inicialmente oculto para não-admins */
-        }
-
-        .delete-btn:hover {
-            opacity: 1;
-        }
-
-        /* Painel Admin */
-        #admin-panel {
-            display: none;
-            max-width: 700px;
-            margin: 2rem auto;
-            background: var(--soft-lilac);
-            padding: 2rem;
-            border-radius: 18px;
-            border: 1.5px solid var(--primary-pink);
-        }
-
-        /* Modal de login admin */
-        #admin-login-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            z-index: 3000;
+            text-align: center;
         }
-
-        .modal-content {
-            background: var(--soft-lilac);
-            padding: 2rem;
-            border-radius: 18px;
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 45px var(--shadow-purple);
         }
-
-        /* Botão Login Cliente */
-        .client-login-btn {
+        .product-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+        .product-card h3 {
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .product-card p {
+            font-size: 0.9rem;
+            color: var(--dark-purple);
+            margin-bottom: 0.8rem;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--white);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .product-card .cta-button {
+            margin-top: auto;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: none;
             background: var(--primary-pink);
             color: var(--white);
-            padding: 1rem 3rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-bottom: 1rem;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-
-        .client-login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(231, 84, 128, 0.3);
+        .product-card .cta-button:hover {
+            background: var(--secondary-purple);
         }
-
-        /* Modal de visualização */
-        #photo-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: center;
-            justify-content: center;
-            z-index: 4000;
+            margin-top: 2rem;
         }
-
-        #photo-modal img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark-purple);
         }
-
-        .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            font-size: 2.5rem;
-            color: white;
+        .about-text p {
+            margin-bottom: 1.2rem;
+            opacity: 0.92;
+        }
+        .about-image {
+            text-align: center;
+            position: relative;
+        }
+        .flower-icon {
+            font-size: 8rem;
+            color: var(--primary-pink);
+            text-shadow: 0 0 32px var(--secondary-purple);
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            display: inline-block;
+            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+            will-change: transform, filter;
+            transition: filter 0.3s, transform 0.3s;
             cursor: pointer;
-            user-select: none;
+        }
+        .flower-icon:hover {
+            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+            filter: drop-shadow(0 0 60px var(--secondary-purple));
+            transform: scale(1.08) rotate(-3deg);
+        }
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        .contact-info {
+            background: var(--glass-purple);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--primary-pink);
+            transition: all 0.4s;
+        }
+        .contact-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-pink);
+            margin-bottom: 1.3rem;
+            font-size: 1.2rem;
+        }
+        .contact-item {
+            margin-bottom: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            background: var(--soft-lilac);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .contact-item strong {
+            font-size: 1.1rem;
+            color: var(--secondary-purple);
+        }
+        .contact-item a {
+            color: var(--primary-pink);
+            text-decoration: none;
+        }
+        .contact-form {
+            background: var(--glass-pink);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--secondary-purple);
+        }
+        .contact-form h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--secondary-purple);
+            margin-bottom: 1.3rem;
+            font-size: 1.2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--soft-lilac);
+            border: 1.5px solid var(--secondary-purple);
+            border-radius: 8px;
+            color: var(--dark-purple);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        footer {
+            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
+            color: var(--white);
+            padding: 2.5rem 2rem 1.2rem;
+            text-align: center;
+            border-top: 1px solid var(--primary-pink);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        .footer-content p {
+            margin-bottom: 0.6rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 900px) {
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-content {
+                padding-top: 5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-content {
+                padding-top: 4rem;
+            }
+            section {
+                padding: 4rem 1rem 1rem;
+            }
+            .flower-icon {
+                font-size: 5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Seção do Catálogo Público -->
-        <section id="catalogo">
-            <h2 class="section-title animated-text">Beleza, Perfume & Bem-Estar</h2>
-            <button class="client-login-btn" onclick="showCatalog()">Ver Catálogo Completo</button>
-            <div id="admin-photos-gallery"></div>
-        </section>
-
-        <!-- Painel Admin -->
-        <section id="admin-panel">
-            <h3>Upload de Fotos</h3>
-            <form id="upload-form">
-                <label for="photo-name">Nome da Foto</label>
-                <input type="text" id="photo-name" required>
-                <label for="photo-desc">Descrição</label>
-                <textarea id="photo-desc" rows="3" required></textarea>
-                <label for="photo-image">Selecione a imagem</label>
-                <input type="file" id="photo-image" accept="image/*" required>
-                <button type="submit">Adicionar Foto</button>
-            </form>
-            <div id="preview-container">
-                <h4>Fotos Recentemente Adicionadas</h4>
-                <div id="preview-list"></div>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon" title="Laudiane Lopes">🌸</span>
+                Laudiane Lopes
             </div>
-            <button id="admin-logout-btn" style="display: none; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--secondary-purple); color: white; border: none; cursor: pointer;">
-                Logout Admin
-            </button>
-        </section>
-    </div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Modal de Visualização -->
-    <div id="photo-modal">
-        <span class="close-btn">&times;</span>
-        <img src="" alt="Foto em alta resolução">
-    </div>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Beleza, Perfume & Bem-Estar</h1>
+            <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora</p>
+            <p class="hero-description">
+                Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
+                Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
+            </p>
+            <a href="#contato" class="cta-button">Peça seu Catálogo</a>
+        </div>
+    </section>
 
-    <script>
-        // Elementos do DOM
-        const adminLoginBtn = document.getElementById('admin-login-btn');
-        const adminLoginModal = document.getElementById('admin-login-modal');
-        const loginForm = document.getElementById('login-form');
-        const adminPanel = document.getElementById('admin-panel');
-        const previewList = document.getElementById('preview-list');
-        const adminPhotosGallery = document.getElementById('admin-photos-gallery');
-        const photoModal = document.getElementById('photo-modal');
-        const photoModalImg = photoModal.querySelector('img');
-        const photoModalClose = document.querySelector('.close-btn');
+    <section id="produtos">
+        <h2 class="section-title">Produtos em Destaque</h2>
+        <div class="products-carousel">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
+                <h3>Perfume Natura Essencial</h3>
+                <p>Fragrância sofisticada com notas amadeiradas e florais. Produto vegano e cruelty-free.</p>
+                <span class="badge">Vegano</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Maquiagem O Boticário" loading="lazy" />
+                <h3>Maquiagem O Boticário</h3>
+                <p>Alta cobertura e longa duração com ingredientes hidratantes.</p>
+                <span class="badge">Hipoalergênico</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Kit Natura Ekos" loading="lazy" />
+                <h3>Kit Natura Ekos</h3>
+                <p>Produtos naturais para cuidados corporais com ingredientes da biodiversidade brasileira.</p>
+                <span class="badge">Natural</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=400&q=80" alt="Perfume Eudora" loading="lazy" />
+                <h3>Perfume Eudora</h3>
+                <p>Fragrância marcante e envolvente, ideal para ocasiões especiais.</p>
+                <span class="badge">Exclusivo</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+        </div>
+    </section>
 
-        // Estado do administrador
-        let adminLoggedIn = false;
+    <section id="sobre">
+        <h2 class="section-title">Sobre Laudiane Lopes</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    <strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.
+                </p>
+                <p>
+                    Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!
+                </p>
+                <p>
+                    <b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b>
+                </p>
+            </div>
+            <div class="about-image">
+                <span class="flower-icon" title="Flor da Beleza">🌸</span>
+            </div>
+        </div>
+    </section>
 
-        // Função para mostrar/ocultar painel admin
-        function toggleAdminPanel(show) {
-            adminPanel.style.display = show ? 'block' : 'none';
-            adminLoginBtn.style.display = show ? 'none' : 'block';
-            adminLoggedIn = show;
+    <section id="contato">
+        <h2 class="section-title">Fale com Laudiane</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Atendimento & Pedidos</h3>
+                <div class="contact-item">
+                    <strong>📱</strong>
+                    <span><a href="https://wa.me/5599999999999" target="_blank">WhatsApp: (99) 99999-9999</a></span>
+                </div>
+                <div class="contact-item">
+                    <strong>📧</strong>
+                    <span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span>
+                </div>
+                <div class="contact-item">
+                    <strong>📍</strong>
+                    <span>Palmas, Tocantins</span>
+                </div>
+                <div class="contact-item">
+                    <strong>⏰</strong>
+                    <span>Seg a Sáb: 8h às 20h</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Peça seu Catálogo ou Faça um Pedido</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Enviar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-            // Mostrar botão de logout se logado
-            const logoutBtn = document.getElementById('admin-logout-btn');
-            logoutBtn.style.display = show ? 'block' : 'none';
-
-            // Atualizar visibilidade dos botões de exclusão
-            updateDeleteButtons();
-        }
-
-        // Atualiza visibilidade dos botões de exclusão
-        function updateDeleteButtons() {
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.style.display = adminLoggedIn ? 'block' : 'none';
-            });
-        }
-
-        // Função para adicionar foto ao catálogo
-        function addPhotoToGallery(photo) {
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.dataset.id = photo.id;
-
-            const img = document.createElement('img');
-            img.src = photo.imageSrc;
-            img.alt = photo.name;
-            img.title = photo.desc;
-            img.style.width = '100%';
-            img.style.height = '200px';
-            img.style.objectFit = 'cover';
-            img.addEventListener('click', () => openPhotoModal(photo.imageSrc));
-
-            // Botão de exclusão (apenas para admin)
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.textContent = 'Excluir';
-            deleteBtn.onclick = () => deletePhoto(photo.id);
-
-            card.appendChild(img);
-            card.appendChild(deleteBtn);
-            adminPhotosGallery.appendChild(card);
-        }
-
-        // Função para abrir modal de visualização
-        function openPhotoModal(src) {
-            photoModalImg.src = src;
-            photoModal.style.display = 'flex';
-        }
-
-        // Fechar modal
-        photoModalClose.addEventListener('click', () => {
-            photoModal.style.display = 'none';
-            photoModalImg.src = '';
-        });
-
-        // Deletar foto
-        function deletePhoto(id) {
-            if (!confirm('Deseja realmente excluir esta foto?')) return;
-
-            // Remover da galeria
-            const card = adminPhotosGallery.querySelector(`.photo-card[data-id="${id}"]`);
-            if (card) card.remove();
-
-            // Remover do localStorage
-            let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-            photos = photos.filter(p => p.id !== id);
-            localStorage.setItem('adminPhotos', JSON.stringify(photos));
-        }
-
-        // Login do Admin
-        adminLoginBtn.addEventListener('click', () => {
-            adminLoginModal.style.display = 'flex';
-        });
-
-        adminLoginModal.addEventListener('click', (e) => {
-            if (e.target === adminLoginModal) {
-                adminLoginModal.style.display = 'none';
-            }
-        });
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const user = document.getElementById('admin-user').value;
-            const pass = document.getElementById('admin-pass').value;
-
-            if (user === 'admin' && pass === 'admin123') {
-                toggleAdminPanel(true);
-                adminLoginModal.style.display = 'none';
-                alert('Login bem-sucedido!');
-                
-                // Recarregar fotos para atualizar botões
-                loadStoredPhotos();
-            } else {
-                alert('Credenciais inválidas!');
-            }
-        });
-
-        // Logout do admin
-        document.getElementById('admin-logout-btn').addEventListener('click', () => {
-            toggleAdminPanel(false);
-            localStorage.removeItem('adminPhotos'); // Exemplo: Limpar fotos temporárias
-            alert('Logout realizado!');
-        });
-
-        // Upload de fotos
-        document.getElementById('upload-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('photo-name').value;
-            const desc = document.getElementById('photo-desc').value;
-            const fileInput = document.getElementById('photo-image');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('Selecione uma imagem!');
-                return;
-            }
-
-            // Lê imagem em base64
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const photo = {
-                    id: Date.now(),
-                    name,
-                    desc,
-                    imageSrc: event.target.result
-                };
-
-                // Salva no localStorage
-                let photos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-                photos.push(photo);
-                localStorage.setItem('adminPhotos', JSON.stringify(photos));
-
-                // Atualiza galeria
-                addPhotoToGallery(photo);
-                addPreview(photo);
-                document.getElementById('upload-form').reset();
-                alert('Foto adicionada com sucesso!');
-            };
-            reader.readAsDataURL(file);
-        });
-
-        // Pré-visualização no painel admin
-        function addPreview(photo) {
-            const previewImg = document.createElement('img');
-            previewImg.src = photo.imageSrc;
-            previewImg.style.width = '100px';
-            previewImg.style.height = '100px';
-            previewImg.style.objectFit = 'cover';
-            previewList.appendChild(previewImg);
-        }
-
-        // Carregar fotos salvas no localStorage
-        function loadStoredPhotos() {
-            const storedPhotos = JSON.parse(localStorage.getItem('adminPhotos') || '[]');
-            storedPhotos.forEach(addPhotoToGallery);
-        }
-
-        // Eventos de inicialização
-        window.addEventListener('DOMContentLoaded', () => {
-            loadStoredPhotos();
-        });
-
-        // Função para mostrar catálogo público
-        function showCatalog() {
-            adminPhotosGallery.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
+            <p>Beleza, Perfume & Bem-Estar | Consultoria e Revenda Oficial</p>
+        </div>
+    </footer>
 </body>
 </html>
