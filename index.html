@@ -734,7 +734,7 @@
   </footer>
 
 <script>
-  // Simples login admin front-end (usuário: admin, senha: 1234)
+  // Login admin simples (user: admin, pass: 1234)
   const adminLoginBtn = document.getElementById('admin-login-btn');
   const adminLoginModal = document.getElementById('admin-login-modal');
   const loginForm = document.getElementById('login-form');
@@ -764,7 +764,7 @@
     }
   });
 
-  // Upload de imagem e preview + adicionar produto na lista
+  // Upload e exibição dinâmica dos produtos
   const uploadForm = document.getElementById('upload-form');
   const previewContainer = document.getElementById('preview-container');
   const productsCarousel = document.getElementById('products-carousel');
@@ -818,7 +818,7 @@
 
       productsCarousel.appendChild(card);
 
-      // Preview da imagem enviada
+      // Preview da imagem enviada no painel admin
       const previewImg = document.createElement('img');
       previewImg.src = event.target.result;
       previewImg.alt = name;
