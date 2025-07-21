@@ -1,148 +1,319 @@
-import React from 'react';
-
-export default function App() {
-  return (
-    <div className="font-sans text-gray-800 min-h-screen antialiased">
-      {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-5 right-5 z-50">
-        <button className="bg-green-500 hover:bg-green-600 text-white rounded-full p-3 shadow-lg transition duration-300 transform hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24">
-            <path d="M20 4L12 13l-8-9 1.41-1.41L12 15.17l10.59-10.59L20 4z" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Header */}
-      <header className="fixed top-0 inset-x-0 bg-white shadow-lg py-4 z-40 transition-transform duration-300">
-        <div className="container mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 24 24">
-                <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z" />
-              </svg>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laudiane Lopes - Beleza & Perfumes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-pink: #e75480;
+            --secondary-purple: #a259c6;
+            --accent-green: #6ee7b7;
+            --soft-lilac: #f3e8ff;
+            --white: #fff;
+            --dark-purple: #3a2244;
+            --shadow-pink: rgba(231, 84, 128, 0.15);
+            --shadow-purple: rgba(162, 89, 198, 0.15);
+            --glass-pink: rgba(231, 84, 128, 0.10);
+            --glass-purple: rgba(162, 89, 198, 0.10);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
+            color: var(--dark-purple);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
+                radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+            animation: subtleFloat 8s ease-in-out infinite;
+        }
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background: rgba(243, 232, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--secondary-purple);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+        }
+        .logo-icon {
+            font-size: 2.5rem;
+            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+            will-change: transform, filter;
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            transition: filter 0.3s, transform 0.3s;
+        }
+        .logo-icon:hover {
+            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+            filter: drop-shadow(0 0 40px var(--primary-pink));
+            transform: scale(1.08) rotate(-3deg);
+        }
+        @keyframes floatFlower {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes swingFlower {
+            0% { transform: rotate(-6deg); }
+            50% { transform: rotate(6deg); }
+            100% { transform: rotate(-6deg); }
+        }
+        @keyframes rotateColorFlower {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(20deg); }
+        }
+        @keyframes pulseFlower {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+        .nav-links a {
+            color: var(--secondary-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .nav-links a:hover {
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            color: var(--white);
+            transform: translateY(-2px) scale(1.07);
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
+        }
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            padding: 7rem 2rem 2rem;
+        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.7rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-purple);
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.95;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            color: var(--white);
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s;
+            box-shadow: 0 10px 40px var(--shadow-pink);
+        }
+        .cta-button:hover {
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 20px 60px var(--shadow-purple);
+        }
+        section {
+            padding: 7rem 2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--secondary-purple);
+            text-align: center;
+            margin-bottom: 3.5rem;
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .product-card {
+            flex: 0 0 280px;
+            background: var(--glass-pink);
+            border-radius: 16px;
+            padding: 1.5rem;
+            scroll-snap-align: start;
+            box-shadow: 0 8px 30px var(--shadow-pink);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 45px var(--shadow-purple);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+        .flower-icon {
+            font-size: 8rem;
+            color: var(--primary-pink);
+            text-shadow: 0 0 32px var(--secondary-purple);
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+            will-change: transform, filter;
+            transition: filter 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+        .flower-icon:hover {
+            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+            filter: drop-shadow(0 0 60px var(--secondary-purple));
+            transform: scale(1.08) rotate(-3deg);
+        }
+        /* Floating WhatsApp Button */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-pink);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.1) rotate(360deg);
+            background: var(--secondary-purple);
+        }
+        .floating-whatsapp svg {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">🌸</span>
+                Laudiane Lopes
             </div>
-            <h1 className="text-2xl font-bold text-pink-600">Laudiane Lopes</h1>
-          </div>
-          <nav className="hidden md:flex space-x-6">
-            <a href="#home" className="text-gray-600 hover:text-pink-600 transition">Início</a>
-            <a href="#products" className="text-gray-600 hover:text-pink-600 transition">Produtos</a>
-            <a href="#about" className="text-gray-600 hover:text-pink-600 transition">Sobre</a>
-            <a href="#contact" className="text-gray-600 hover:text-pink-600 transition">Contato</a>
-          </nav>
-          <button className="md:hidden text-gray-600 hover:text-pink-600 transition">
-            <svg className="h-6 w-6" viewBox="0 0 24 24">
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section id="home" className="relative pt-24 md:pt-32">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center text-center">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 mb-4">
-              Beleza, Perfume & Bem-Estar
-            </h1>
-            <p className="text-lg text-gray-600 mb-8">
-              Revendedora Oficial O Boticário • Natura • Eudora
-            </p>
-            <button className="bg-pink-600 hover:bg-pink-700 text-white py-3 px-8 rounded-full font-semibold transition">
-              Peça seu Catálogo
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section id="products" className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-pink-600 mb-8 text-center">
-          Produtos em Destaque
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            { name: 'Perfume Natura Essencial', image: 'https://via.placeholder.com/400/3498db ' },
-            { name: 'Maquiagem O Boticário', image: 'https://via.placeholder.com/400/2ecc71 ' },
-            { name: 'Kit Natura Ekos', image: 'https://via.placeholder.com/400/9b59b6 ' },
-          ].map((product, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300">
-              <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-pink-600 mb-2">{product.name}</h3>
-                <p className="text-gray-600 mb-2">Descrição do produto...</p>
-                <button className="bg-pink-600 hover:bg-pink-700 text-white py-2 px-4 rounded transition">
-                  Comprar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="container mx-auto px-6 py-16 bg-gray-100">
-        <h2 className="text-3xl font-bold text-pink-600 mb-8 text-center">
-          Sobre Laudiane Lopes
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <p className="text-gray-600">
-              Consultora especializada em beleza com 7 anos de experiência. Oferecemos atendimento personalizado e produtos originais das melhores marcas.
-            </p>
-            <p className="text-gray-600">
-              Contamos com entrega rápida e consultorias exclusivas para realçar sua beleza única.
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <img src="https://via.placeholder.com/400/3498db " alt="Laudiane" className="rounded-lg shadow-lg" />
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-pink-600 mb-8 text-center">
-          Fale com a Laudiane
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-2xl font-semibold text-pink-600 mb-4">Contato</h3>
-            <ul className="space-y-4">
-              <li className="flex items-center space-x-3">
-                <svg className="h-5 w-5 text-pink-600" viewBox="0 0 24 24">
-                  <path d="M20 1h-16c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H4V3h16v16zm-5-6h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
-                </svg>
-                <span>(62) 98232-6163</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <svg className="h-5 w-5 text-pink-600" viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.37.73 4.5 1.9l2.15-1.65c-1.69-2.13-4.06-3.49-6.8-3.49-4.42 0-8 3.58-8 8s3.58 8 8 8c4.41 0 6.75-2.54 6.75-6.8 0-0.55-0.07-1.08-0.2-1.55zM16.5 9c-1.74 0-3.37.73-4.5 1.9l2.15-1.65C16.57 7.34 18.23 6 20 6c3.09 0 5.5 2.41 5.5 5.5 0 2.32-1.98 4.3-4.5 4.85l-2.15-1.65z" />
-                </svg>
-                <span>laudiane@beleza.com</span>
-              </li>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
             </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-semibold text-pink-600 mb-4">Deixe sua mensagem</h3>
-            <form className="space-y-4">
-              <input type="text" placeholder="Nome" className="w-full p-3 border rounded focus:outline-none focus:border-pink-600" />
-              <input type="email" placeholder="E-mail" className="w-full p-3 border rounded focus:outline-none focus:border-pink-600" />
-              <textarea placeholder="Mensagem" className="w-full p-3 border rounded focus:outline-none focus:border-pink-600" rows={4}></textarea>
-              <button className="bg-pink-600 hover:bg-pink-700 text-white py-3 px-6 rounded-full font-semibold w-full transition">
-                Enviar
-              </button>
-            </form>
-          </div>
+        </nav>
+    </header>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Beleza, Perfume & Bem-Estar</h1>
+            <p class="hero-subtitle">Revendedora Oficial O Boticário • Natura • Eudora</p>
+            <p class="hero-description">
+                Produtos originais, novidades e lançamentos das melhores marcas para realçar sua beleza e autoestima.<br />
+                Atendimento personalizado, entrega rápida e consultoria de beleza exclusiva com <b>Laudiane Lopes</b>.
+            </p>
+            <a href="#contato" class="cta-button">Peça seu Catálogo</a>
         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-white py-8 border-t border-gray-200">
-        <div className="container mx-auto px-6 text-center text-gray-500">
-          <p>© 2024 Laudiane Lopes. Todos os direitos reservados.</p>
-          <p>Consultoria Oficial O Boticário • Natura • Eudora</p>
+    </section>
+    <section id="produtos">
+        <h2 class="section-title">Produtos em Destaque</h2>
+        <div class="products-carousel">
+            <!-- Product cards here (same as original) -->
         </div>
-      </footer>
-    </div>
-  );
-}
+    </section>
+    <section id="sobre">
+        <h2 class="section-title">Sobre Laudiane Lopes</h2>
+        <div class="about-content">
+            <!-- About content here (same as original) -->
+        </div>
+    </section>
+    <section id="contato">
+        <h2 class="section-title">Fale com Laudiane</h2>
+        <div class="contact-grid">
+            <!-- Contact info and form here (same as original) -->
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <!-- Floating WhatsApp Button -->
+    <a href=" https://wa.me/5562982326163 " class="floating-whatsapp" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 4L12 13l-8-9 1.41-1.41L12 15.17l10.59-10.59L20 4z"/>
+        </svg>
+    </a>
+</body>
+</html>
