@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <style>
         :root {
-            --primary-pink: #e75480;
+            --primary-PaleTurquoise: #e0FFFF;
             --secondary-purple: #a259c6;
             --accent-green: #6ee7b7;
             --soft-lilac: #f3e8ff;
             --white: #fff;
             --dark-purple: #3a2244;
-            --shadow-pink: rgba(231, 84, 128, 0.15);
+            --shadow-PaleTurquoise: rgba(175, 238, 238);
             --shadow-purple: rgba(162, 89, 198, 0.15);
-            --glass-pink: rgba(231, 84, 128, 0.10);
+            --glass-PaleTurquoise: rgba(175, 238, 238);
             --glass-purple: rgba(162, 89, 198, 0.10);
         }
         * {
@@ -25,7 +25,7 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e75480 100%);
+            background: linear-gradient(135deg, #f3e8ff 0%, #fff 50%, #e0FFFF 100%);
             color: var(--dark-purple);
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -38,9 +38,9 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 20% 20%, var(--shadow-pink) 0%, transparent 40%),
+                radial-gradient(circle at 20% 20%, var(--shadow-PaleTurquoise) 0%, transparent 40%),
                 radial-gradient(circle at 80% 80%, var(--shadow-purple) 0%, transparent 40%),
-                radial-gradient(circle at 60% 40%, var(--shadow-pink) 0%, transparent 30%);
+                radial-gradient(circle at 60% 40%, var(--shadow-PaleTurquoise) 0%, transparent 30%);
             pointer-events: none;
             z-index: -1;
             animation: subtleFloat 8s ease-in-out infinite;
@@ -77,7 +77,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             letter-spacing: 2px;
             display: flex;
             align-items: center;
@@ -89,13 +89,13 @@
             animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
                 rotateColorFlower 8s linear infinite;
             will-change: transform, filter;
-            filter: drop-shadow(0 0 20px var(--primary-pink));
+            filter: drop-shadow(0 0 20px var(--primary-PaleTurquoise));
             transition: filter 0.3s, transform 0.3s;
         }
         .logo-icon:hover {
             animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
                 rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 0 40px var(--primary-pink));
+            filter: drop-shadow(0 0 40px var(--primary-PaleTurquoise));
             transform: scale(1.08) rotate(-3deg);
         }
         @keyframes floatFlower {
@@ -122,10 +122,10 @@
         }
         @keyframes rotateColorFlower {
             0% {
-                filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink));
+                filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-PaleTurquoise));
             }
             100% {
-                filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink));
+                filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-PaleTurquoise));
             }
         }
         @keyframes pulseFlower {
@@ -156,7 +156,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nav-links a:hover {
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            background: linear-gradient(90deg, var(--primary-PaleTurquoise), var(--accent-green));
             color: var(--white);
             transform: translateY(-2px) scale(1.07);
         }
@@ -179,9 +179,9 @@
             font-family: 'Montserrat', sans-serif;
             font-size: clamp(2.7rem, 7vw, 4.5rem);
             font-weight: 700;
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             margin-bottom: 1.2rem;
-            background: linear-gradient(90deg, var(--primary-pink), var(--secondary-purple));
+            background: linear-gradient(90deg, var(--primary-PaleTurquoise), var(--secondary-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -204,7 +204,7 @@
         }
         .cta-button {
             display: inline-block;
-            background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
+            background: linear-gradient(90deg, var(--primary-PaleTurquoise), var(--accent-green));
             color: var(--white);
             padding: 1.1rem 2.5rem;
             font-size: 1.1rem;
@@ -213,13 +213,13 @@
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 40px var(--shadow-pink);
-            border: 2px solid var(--primary-pink);
+            box-shadow: 0 10px 40px var(--shadow-PaleTurquoise);
+            border: 2px solid var(--primary-PaleTurquoise);
             position: relative;
             overflow: hidden;
         }
         .cta-button:hover {
-            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-PaleTurquoise));
             color: var(--white);
             transform: translateY(-4px) scale(1.06);
             box-shadow: 0 20px 60px var(--shadow-purple);
@@ -236,7 +236,7 @@
             color: var(--secondary-purple);
             text-align: center;
             margin-bottom: 3.5rem;
-            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            background: linear-gradient(90deg, var(--secondary-purple), var(--primary-PaleTurquoise));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -262,11 +262,11 @@
         }
         .product-card {
             flex: 0 0 280px;
-            background: var(--glass-pink);
+            background: var(--glass-PaleTurquoise);
             border-radius: 16px;
             padding: 1.5rem;
             scroll-snap-align: start;
-            box-shadow: 0 8px 30px var(--shadow-pink);
+            box-shadow: 0 8px 30px var(--shadow-PaleTurquoise);
             transition: transform 0.3s ease;
             cursor: pointer;
             display: flex;
@@ -286,7 +286,7 @@
             aspect-ratio: 1 / 1;
         }
         .product-card h3 {
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             margin-bottom: 0.5rem;
             font-family: 'Montserrat', sans-serif;
         }
@@ -311,7 +311,7 @@
             font-size: 1rem;
             border-radius: 30px;
             border: none;
-            background: var(--primary-pink);
+            background: var(--primary-PaleTurquoise);
             color: var(--white);
             font-weight: 700;
             cursor: pointer;
@@ -345,9 +345,9 @@
         }
         .flower-icon {
             font-size: 8rem;
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             text-shadow: 0 0 32px var(--secondary-purple);
-            filter: drop-shadow(0 0 20px var(--primary-pink));
+            filter: drop-shadow(0 0 20px var(--primary-PaleTurquoise));
             display: inline-block;
             animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
             will-change: transform, filter;
@@ -371,12 +371,12 @@
             backdrop-filter: blur(16px);
             padding: 2.5rem;
             border-radius: 18px;
-            border: 1.5px solid var(--primary-pink);
+            border: 1.5px solid var(--primary-PaleTurquoise);
             transition: all 0.4s;
         }
         .contact-info h3 {
             font-family: 'Montserrat', sans-serif;
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             margin-bottom: 1.3rem;
             font-size: 1.2rem;
         }
@@ -395,11 +395,11 @@
             color: var(--secondary-purple);
         }
         .contact-item a {
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             text-decoration: none;
         }
         .contact-form {
-            background: var(--glass-pink);
+            background: var(--glass-PaleTurquoise);
             backdrop-filter: blur(16px);
             padding: 2.5rem;
             border-radius: 18px;
@@ -417,7 +417,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.6rem;
-            color: var(--primary-pink);
+            color: var(--primary-PaleTurquoise);
             font-weight: 600;
             font-size: 1rem;
         }
@@ -436,18 +436,18 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-pink);
+            border-color: var(--primary-PaleTurquoise);
         }
         .form-group textarea {
             resize: vertical;
             min-height: 80px;
         }
         footer {
-            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
+            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-PaleTurquoise));
             color: var(--white);
             padding: 2.5rem 2rem 1.2rem;
             text-align: center;
-            border-top: 1px solid var(--primary-pink);
+            border-top: 1px solid var(--primary-PaleTurquoise);
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
         }
