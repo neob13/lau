@@ -46,8 +46,13 @@
             animation: subtleFloat 8s ease-in-out infinite;
         }
         @keyframes subtleFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-10px) rotate(1deg); }
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
         }
         header {
             position: fixed;
@@ -81,34 +86,63 @@
         }
         .logo-icon {
             font-size: 2.5rem;
-            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
+            animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate,
+                rotateColorFlower 8s linear infinite;
             will-change: transform, filter;
             filter: drop-shadow(0 0 20px var(--primary-pink));
             transition: filter 0.3s, transform 0.3s;
         }
         .logo-icon:hover {
-            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate, rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4,0,0.2,1);
+            animation: floatFlower 1.5s ease-in-out infinite, swingFlower 2s ease-in-out infinite alternate,
+                rotateColorFlower 4s linear infinite, pulseFlower 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             filter: drop-shadow(0 0 40px var(--primary-pink));
             transform: scale(1.08) rotate(-3deg);
         }
         @keyframes floatFlower {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
         @keyframes swingFlower {
-            0% { transform: rotate(-6deg); }
-            50% { transform: rotate(6deg); }
-            100% { transform: rotate(-6deg); }
+            0% {
+                transform: rotate(-6deg);
+            }
+            50% {
+                transform: rotate(6deg);
+            }
+            100% {
+                transform: rotate(-6deg);
+            }
         }
         @keyframes rotateColorFlower {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(20deg); }
+            0% {
+                filter: hue-rotate(0deg) drop-shadow(0 0 20px var(--primary-pink));
+            }
+            100% {
+                filter: hue-rotate(20deg) drop-shadow(0 0 20px var(--primary-pink));
+            }
         }
         @keyframes pulseFlower {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.12);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
         }
         .nav-links a {
             color: var(--secondary-purple);
@@ -119,7 +153,7 @@
             padding: 0.7rem 1.2rem;
             border-radius: 8px;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nav-links a:hover {
             background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
@@ -133,6 +167,7 @@
             justify-content: center;
             position: relative;
             background: linear-gradient(135deg, rgba(243, 232, 255, 0.8), rgba(231, 84, 128, 0.12));
+            overflow: hidden;
         }
         .hero-content {
             max-width: 900px;
@@ -158,6 +193,15 @@
             font-style: italic;
             opacity: 0.95;
         }
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--dark-purple);
+        }
         .cta-button {
             display: inline-block;
             background: linear-gradient(90deg, var(--primary-pink), var(--accent-green));
@@ -168,11 +212,15 @@
             font-family: 'Montserrat', sans-serif;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 40px var(--shadow-pink);
+            border: 2px solid var(--primary-pink);
+            position: relative;
+            overflow: hidden;
         }
         .cta-button:hover {
             background: linear-gradient(90deg, var(--secondary-purple), var(--primary-pink));
+            color: var(--white);
             transform: translateY(-4px) scale(1.06);
             box-shadow: 0 20px 60px var(--shadow-purple);
         }
@@ -180,6 +228,7 @@
             padding: 7rem 2rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
         }
         .section-title {
             font-family: 'Montserrat', sans-serif;
@@ -191,6 +240,25 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            width: 90px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        /* Seção de produtos com carrossel */
+        .products-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 1rem;
         }
         .product-card {
             flex: 0 0 280px;
@@ -217,11 +285,70 @@
             object-fit: cover;
             aspect-ratio: 1 / 1;
         }
+        .product-card h3 {
+            color: var(--primary-pink);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .product-card p {
+            font-size: 0.9rem;
+            color: var(--dark-purple);
+            margin-bottom: 0.8rem;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--white);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .product-card .cta-button {
+            margin-top: auto;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: none;
+            background: var(--primary-pink);
+            color: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .product-card .cta-button:hover {
+            background: var(--secondary-purple);
+        }
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--dark-purple);
+        }
+        .about-text p {
+            margin-bottom: 1.2rem;
+            opacity: 0.92;
+        }
+        .about-image {
+            text-align: center;
+            position: relative;
+        }
         .flower-icon {
             font-size: 8rem;
             color: var(--primary-pink);
             text-shadow: 0 0 32px var(--secondary-purple);
             filter: drop-shadow(0 0 20px var(--primary-pink));
+            display: inline-block;
             animation: floatFlower 3.5s ease-in-out infinite, swingFlower 4s ease-in-out infinite alternate, rotateColorFlower 8s linear infinite;
             will-change: transform, filter;
             transition: filter 0.3s, transform 0.3s;
@@ -232,31 +359,122 @@
             filter: drop-shadow(0 0 60px var(--secondary-purple));
             transform: scale(1.08) rotate(-3deg);
         }
-        /* Floating WhatsApp Button */
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--primary-pink);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        .contact-info {
+            background: var(--glass-purple);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--primary-pink);
+            transition: all 0.4s;
+        }
+        .contact-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-pink);
+            margin-bottom: 1.3rem;
+            font-size: 1.2rem;
+        }
+        .contact-item {
+            margin-bottom: 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            transition: transform 0.3s;
-            cursor: pointer;
+            gap: 1rem;
+            padding: 0.8rem;
+            background: var(--soft-lilac);
+            border-radius: 10px;
+            transition: all 0.3s;
         }
-        .floating-whatsapp:hover {
-            transform: scale(1.1) rotate(360deg);
-            background: var(--secondary-purple);
+        .contact-item strong {
+            font-size: 1.1rem;
+            color: var(--secondary-purple);
         }
-        .floating-whatsapp svg {
-            width: 30px;
-            height: 30px;
+        .contact-item a {
+            color: var(--primary-pink);
+            text-decoration: none;
+        }
+        .contact-form {
+            background: var(--glass-pink);
+            backdrop-filter: blur(16px);
+            padding: 2.5rem;
+            border-radius: 18px;
+            border: 1.5px solid var(--secondary-purple);
+        }
+        .contact-form h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--secondary-purple);
+            margin-bottom: 1.3rem;
+            font-size: 1.2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--soft-lilac);
+            border: 1.5px solid var(--secondary-purple);
+            border-radius: 8px;
+            color: var(--dark-purple);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        footer {
+            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-pink));
+            color: var(--white);
+            padding: 2.5rem 2rem 1.2rem;
+            text-align: center;
+            border-top: 1px solid var(--primary-pink);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        .footer-content p {
+            margin-bottom: 0.6rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 900px) {
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-content {
+                padding-top: 5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-content {
+                padding-top: 4rem;
+            }
+            section {
+                padding: 4rem 1rem 1rem;
+            }
+            .flower-icon {
+                font-size: 5rem;
+            }
         }
     </style>
 </head>
@@ -264,7 +482,7 @@
     <header>
         <nav>
             <div class="logo">
-                <span class="logo-icon">🌸</span>
+                <span class="logo-icon" title="Laudiane Lopes">🌸</span>
                 Laudiane Lopes
             </div>
             <ul class="nav-links">
@@ -275,6 +493,7 @@
             </ul>
         </nav>
     </header>
+
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Beleza, Perfume & Bem-Estar</h1>
@@ -286,34 +505,113 @@
             <a href="#contato" class="cta-button">Peça seu Catálogo</a>
         </div>
     </section>
+
     <section id="produtos">
         <h2 class="section-title">Produtos em Destaque</h2>
         <div class="products-carousel">
-            <!-- Product cards here (same as original) -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Perfume Natura Essencial" loading="lazy" />
+                <h3>Perfume Natura Essencial</h3>
+                <p>Fragrância sofisticada com notas amadeiradas e florais. Produto vegano e cruelty-free.</p>
+                <span class="badge">Vegano</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=400&q=80" alt="Maquiagem O Boticário" loading="lazy" />
+                <h3>Maquiagem O Boticário</h3>
+                <p>Alta cobertura e longa duração com ingredientes hidratantes.</p>
+                <span class="badge">Hipoalergênico</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Kit Natura Ekos" loading="lazy" />
+                <h3>Kit Natura Ekos</h3>
+                <p>Produtos naturais para cuidados corporais com ingredientes da biodiversidade brasileira.</p>
+                <span class="badge">Natural</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=400&q=80" alt="Perfume Eudora" loading="lazy" />
+                <h3>Perfume Eudora</h3>
+                <p>Fragrância marcante e envolvente, ideal para ocasiões especiais.</p>
+                <span class="badge">Exclusivo</span>
+                <a href="#contato" class="cta-button">Quero Comprar</a>
+            </div>
         </div>
     </section>
+
     <section id="sobre">
         <h2 class="section-title">Sobre Laudiane Lopes</h2>
         <div class="about-content">
-            <!-- About content here (same as original) -->
+            <div class="about-text">
+                <p>
+                    <strong>Laudiane Lopes</strong> é apaixonada por beleza, autoestima e bem-estar. Atua há mais de 7 anos como consultora e revendedora das principais marcas do Brasil, sempre focada em proporcionar experiências únicas para cada cliente.
+                </p>
+                <p>
+                    Atendimento humanizado, dicas personalizadas, entrega rápida e confiança são os pilares do seu trabalho. Seja para uso próprio ou para presentear, conte com a expertise de quem entende do assunto!
+                </p>
+                <p>
+                    <b>Peça seu catálogo digital ou agende uma consultoria de beleza gratuita.</b>
+                </p>
+            </div>
+            <div class="about-image">
+                <span class="flower-icon" title="Flor da Beleza">🌸</span>
+            </div>
         </div>
     </section>
+
     <section id="contato">
         <h2 class="section-title">Fale com Laudiane</h2>
         <div class="contact-grid">
-            <!-- Contact info and form here (same as original) -->
+            <div class="contact-info">
+                <h3>Atendimento & Pedidos</h3>
+                <div class="contact-item">
+                    <strong>📱</strong>
+                    <span><a href="https://wa.me/55982326163" target="_blank">WhatsApp: (62) 98232-6163</a></span>
+                </div>
+                <div class="contact-item">
+                    <strong>📧</strong>
+                    <span><a href="mailto:laudiane@beleza.com">laudiane@beleza.com</a></span>
+                </div>
+                <div class="contact-item">
+                    <strong>📍</strong>
+                    <span>Goiânia, Goiás</span>
+                </div>
+                <div class="contact-item">
+                    <strong>⏰</strong>
+                    <span>Seg a Sáb: 8h às 20h</span>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Peça seu Catálogo ou Faça um Pedido</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" placeholder="Quero receber o catálogo, ou descreva seu pedido..." required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Enviar Pedido</button>
+                </form>
+            </div>
         </div>
     </section>
+
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 Laudiane Lopes. Todos os direitos reservados.</p>
+            <p>Beleza, Perfume & Bem-Estar | Consultoria e Revenda Oficial</p>
         </div>
     </footer>
-    <!-- Floating WhatsApp Button -->
-    <a href=" https://wa.me/5562982326163 " class="floating-whatsapp" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M20 4L12 13l-8-9 1.41-1.41L12 15.17l10.59-10.59L20 4z"/>
-        </svg>
-    </a>
 </body>
 </html>
